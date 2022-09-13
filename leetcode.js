@@ -221,7 +221,7 @@
 
 
 
-const nums = [3,1,2,4]
+// const nums = [3,1,2,4]
 // var sortArrayByParity = function(nums) {
 //     for (let i = nums.length-1; i>=0;i--){
 //         if(nums[i] % 2 !== 0){
@@ -250,3 +250,69 @@ const nums = [3,1,2,4]
 //
 // };
 // console.log(sortArrayByParity(nums),nums)
+
+// const nums = [0,1,2,2,3,0,4,2]
+// var removeElement = function(nums, val) {
+//     let count = 0;
+//
+//     for (let i = 0; i < nums.length; i++) {
+//         if (nums[i] !== val) {
+//             nums[count] = nums[i];
+//             count++;
+//         }
+//     }
+//
+//     return count;
+// };
+// console.log(removeElement(nums,2),nums)
+
+// const heights = [1,1,4,2,1,3]
+// var heightChecker = function(heights) {
+//
+//     const orgHeights = [...heights];
+//     const sortedHeights = heights.sort(function(a,b){return a - b});
+//     let track = 0;
+//     for(let i=0; i < orgHeights.length; i++) {
+//         if(orgHeights[i] !== sortedHeights[i]) {
+//             track += 1;
+//         }
+//     }
+//     return track;
+// };
+// console.log(heightChecker(heights))
+
+const nums = [1,2]
+var thirdMax = function (nums) {
+    let max = -Infinity,mid = -Infinity,min = Infinity;
+
+    for(let num of nums){
+
+        if(num > max){
+            min = mid;
+            mid = max;
+            max = num;
+        }else if(num > mid && num < max){
+            min = mid;
+            mid = num;
+        }else if(num > min && num < mid){
+            min = num;
+        }
+    }
+    return (min > -Infinity) ? min : max;
+};
+console.log(thirdMax(nums))
+
+var thirdMax = function(nums) {
+    const set = new Set(nums)
+
+    let max = Math.max(...set)
+
+    if (set.size < 3) {
+        return max
+    }
+
+    set.delete(max)
+    max = Math.max(...set)
+    set.delete(max)
+    return Math.max(...set)
+};
