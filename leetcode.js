@@ -207,7 +207,7 @@
 //
 //     return nums;
 
-};
+// };
 // var moveZeroes = function(nums) {
 //     for (let i = nums.length-1; i>=0;i--){
 //         if(nums[i]===0){
@@ -218,3 +218,35 @@
 //
 // };
 // console.log(moveZeroes(nums2), nums2)
+
+
+
+const nums = [3,1,2,4]
+// var sortArrayByParity = function(nums) {
+//     for (let i = nums.length-1; i>=0;i--){
+//         if(nums[i] % 2 !== 0){
+//             nums.push(nums[i])
+//             nums.splice(i,1)
+//
+//         }
+//     }
+//         return nums
+// };
+// console.log(sortArrayByParity(nums),nums)
+
+var sortArrayByParity = function(nums) {
+
+    var i = 0, j = 0;
+    var tempValue;
+    for (j; j < nums.length; j++) {
+        if(nums[j] % 2 === 0) {
+            tempValue = nums[i];
+            nums[i] = nums[j];
+            nums[j] = tempValue;
+            i++;
+        }
+    }
+    return nums;
+
+};
+console.log(sortArrayByParity(nums),nums)
