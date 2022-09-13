@@ -234,19 +234,19 @@ const nums = [3,1,2,4]
 // };
 // console.log(sortArrayByParity(nums),nums)
 
-var sortArrayByParity = function(nums) {
-
-    var i = 0, j = 0;
-    var tempValue;
-    for (j; j < nums.length; j++) {
-        if(nums[j] % 2 === 0) {
-            tempValue = nums[i];
-            nums[i] = nums[j];
-            nums[j] = tempValue;
-            i++;
-        }
-    }
-    return nums;
-
-};
-console.log(sortArrayByParity(nums),nums)
+// var sortArrayByParity = function(nums) {
+//
+//     var i = 0, j = 0;
+//     var tempValue;
+//     for (j; j < nums.length; j++) {
+//         if(nums[j] % 2 === 0) {
+//             tempValue = nums[i];
+//             nums[i] = nums[j];
+//             nums[j] = tempValue;
+//             i++;
+//         }
+//     }
+//     return nums;
+//
+// };
+// console.log(sortArrayByParity(nums),nums)
