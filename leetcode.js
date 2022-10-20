@@ -281,38 +281,68 @@
 // };
 // console.log(heightChecker(heights))
 
-const nums = [1,2]
-var thirdMax = function (nums) {
-    let max = -Infinity,mid = -Infinity,min = Infinity;
+// const nums = [1,2]
+// var thirdMax = function (nums) {
+//     let max = -Infinity,mid = -Infinity,min = Infinity;
+//
+//     for(let num of nums){
+//
+//         if(num > max){
+//             min = mid;
+//             mid = max;
+//             max = num;
+//         }else if(num > mid && num < max){
+//             min = mid;
+//             mid = num;
+//         }else if(num > min && num < mid){
+//             min = num;
+//         }
+//     }
+//     return (min > -Infinity) ? min : max;
+// };
+// console.log(thirdMax(nums))
+//
+// var thirdMax = function(nums) {
+//     const set = new Set(nums)
+//
+//     let max = Math.max(...set)
+//
+//     if (set.size < 3) {
+//         return max
+//     }
+//
+//     set.delete(max)
+//     max = Math.max(...set)
+//     set.delete(max)
+//     return Math.max(...set)
+// };
+const variant = '(({{[[]}}))'
 
-    for(let num of nums){
+const isValid = (str) => {
 
-        if(num > max){
-            min = mid;
-            mid = max;
-            max = num;
-        }else if(num > mid && num < max){
-            min = mid;
-            mid = num;
-        }else if(num > min && num < mid){
-            min = num;
+    const stack = []
+    const map = {
+        ')': '(',
+        '}': '{',
+        ']': '['
+
+    }
+
+    for (let i = 0; i < str.length; i++) {
+        const current = str[i]
+        if (isClosed(current)) {
+            if (map[current] !== stack.pop()) return false
+        } else {
+            stack.push(current)
         }
-    }
-    return (min > -Infinity) ? min : max;
-};
-console.log(thirdMax(nums))
-
-var thirdMax = function(nums) {
-    const set = new Set(nums)
-
-    let max = Math.max(...set)
-
-    if (set.size < 3) {
-        return max
+        console.log(stack)
     }
 
-    set.delete(max)
-    max = Math.max(...set)
-    set.delete(max)
-    return Math.max(...set)
-};
+    return stack.length === 0
+}
+
+const isClosed = (ch) => {
+    return [ ']', '}', ')' ].indexOf(ch) > -1
+}
+
+console.log(isValid(variant))
