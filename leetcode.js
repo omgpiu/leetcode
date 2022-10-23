@@ -580,3 +580,14 @@
 // }
 //
 // console.log(sumTwo([ 2, 7, 11, 15 ], 9))
+const s = "anagram", t = "nagaram"
+
+var isAnagram = function (s, t) {
+    if (s.length !== t.length) return false
+    const sortedS = s.split('').sort().join('')
+    let sortedT = t.split('').sort().join('')
+    return  sortedS === sortedT
+
+};
+
+console.log(isAnagram(s, t))
