@@ -316,33 +316,267 @@
 //     set.delete(max)
 //     return Math.max(...set)
 // };
-const variant = '(({{[[]}}))'
+// const variant = '(({{[]}}))'
+//
+// const isValid = (str) => {
+//
+//     const stack = []
+//     const map = {
+//         ')': '(',
+//         '}': '{',
+//         ']': '['
+//
+//     }
+//
+//     for (let i = 0; i < str.length; i++) {
+//         const current = str[i]
+//         if (isClosed(current)) {
+//             if (map[current] !== stack.pop()) return false
+//         } else {
+//             stack.push(current)
+//         }
+//     }
+//
+//     return stack.length === 0
+// }
+//
+// const isClosed = (ch) => {
+//     return [ ']', '}', ')' ].includes(ch)
+// }
+//
+// console.log(isValid(variant))
+//
+//
+// const isValidString = (str) => {
+//     const set = new Set([ '}', ')', ']' ])
+//     const stack = [];
+//     const map = {
+//         ')': '(',
+//         '}': '{',
+//         ']': '['
+//     }
+//
+//     for (let i = 0; i < str.length; i++) {
+//         const current = str[i]
+//         if (set.has(current)) {
+//             if (map[current] !== stack.pop()) return false
+//         } else {
+//             stack.push(current)
+//
+//         }
+//
+//     }
+//
+//     return stack.length === 0
+// }
+//
+//
+//
+//
+// console.log(isValidString('{{}}'))
 
-const isValid = (str) => {
+//
+// const example1 = [ 'aabb', 'ab', 'ba', 'cd', 'dc', 'cccd' ]
+//
+// const getAmountOfPairs = (arra) => {
+//     const counts = {};
+//     let count = 0;
+//
+//     for (let i = 0; i < arra.length; i++) {
+//         arra[i] = [ ...new Set(arra[i]) ].join('')
+//
+//     }
+//     for (let j = 0; j < arra.length; j++) {
+//         const reversed = arra[j + 1]?.split('')?.reverse()?.join('')
+//         if (arra[j].length === arra[j + 1]?.length) {
+//             if (arra[j] !== arra[j + 1]) {
+//                 if (arra[j] === reversed) {
+//                     arra[j + 1] = reversed
+//                     continue
+//                 }
+//             }
+//         }
+//     }
+//
+//     arra.forEach((x) => {
+//         counts[x] = (counts[x] || 0) + 1;
+//     });
+//
+//     Object.values(counts).forEach(el => {
+//         count += el
+//     })
+//
+//     return count
+// }
+//
+//
+// console.log(getAmountOfPairs(example1))
 
-    const stack = []
-    const map = {
-        ')': '(',
-        '}': '{',
-        ']': '['
+// const nums = [ 2, 3, 4, 7 ]
+// const target = 9
+//
+// function twoSum(nums, target) {
+// for (let i = 0; i < nums.length; i++) {
+//     for (let j = i + 1; j < nums.length; j++) {
+//         if (nums[i] + nums[j] === target) {
+//             return [i+1, j+1];
+//         }
+//     }
+// }}
+// let result;
+// let numObj = {};
+// for (let i = 0; i < nums.length; i++) {
+//     let pointer = target - nums[i];
+//
+//     if (numObj[pointer] !== undefined) {
+//         result = [ numObj[pointer], i ]
+//     }
+//     numObj[nums[i]] = i
+//
+// }
+// console.log(result)
+// console.log(numObj)
+// }
 
-    }
 
-    for (let i = 0; i < str.length; i++) {
-        const current = str[i]
-        if (isClosed(current)) {
-            if (map[current] !== stack.pop()) return false
-        } else {
-            stack.push(current)
-        }
-        console.log(stack)
-    }
+// console.log(twoSum(nums, target))
+//
+// const summm = (nums, target) => {
+//
+//     let obj = {}
+//
+//     for (let i = 0; i < nums.length; i++) {
+//         let result = target - nums[i]
+//
+//         if (obj[result] !== undefined) {
+//             return [ obj[result], i ]
+//         } else {
+//             obj[nums[i]] = i
+//         }
+//
+//     }
+// }
+// console.log(summm(nums, target))
+// const price = [ 7, 1, 5, 3, 6, 4 ]
+// var maxProfit = function (prices) {
+//     // let profit = 0;
+//     // for (let i = 0; i < prices.length - 1; i++) {
+//     //     for (let j = i + 1; j < prices.length; j++) {
+//     //         const currentProfit = prices[j] - prices[i];
+//     //
+//     //         if (currentProfit > profit) {
+//     //             profit = currentProfit;
+//     //         }
+//     //     }
+//     // }
+//     //
+//     // return profit;
+//
+//
+//     let profit = 0;
+//
+//     let stockToBuy = prices[0];
+//
+//     for (let i = 1; i < prices.length; i++) {
+//         if (stockToBuy > prices[i]) {
+//             stockToBuy = prices[i];
+//         }
+//
+//         const currentProfit = prices[i] - stockToBuy;
+//
+//         if (currentProfit > profit) {
+//             profit = currentProfit;
+//         }
+//     }
+//
+//     return profit;
+//
+// };
+//
+// console.log(maxProfit(price))
 
-    return stack.length === 0
-}
+//resolved
+// const nums = [ 2, 14, 18, 22, 22 ]
+// var containsDuplicate = function (nums) {
+//     const deleteDuple = new Set(nums).size
+//     return deleteDuple !== nums.length
+// };
+//
+// console.log(containsDuplicate(nums))
+// const s = "()[]{}"
+// var isValid = function (s) {
+//     const stack = []
+//     const map = {
+//         '}':'{',
+//         ")":"(",
+//         "]":"["
+//     }
+//     const isClosed = new Set([ ']', '}', ')' ])
+//     for (let i = 0; i < s.length; i++) {
+//         const current = s[i]
+//         if (isClosed.has(current)) {
+//             if (map[current] !== stack.pop()) return false
+//         } else {
+//             stack.push(current)
+//         }
+//     }
+//     return stack.length ===0
+// };
+// console.log(isValid(s))
 
-const isClosed = (ch) => {
-    return [ ']', '}', ')' ].indexOf(ch) > -1
-}
+// const first = "A man, a plan, a canal: Panama"
+// var isPalindrome = function (s) {
+//    let myStr= s.replace(/[^a-zA-Z0-9]/g,'')
+//
+//     let count = myStr.length - 1
+//     for (let i = 0; i < myStr.length; i++, count--) {
+//         if (myStr[i].toLowerCase() !== myStr[count].toLowerCase()) {
+//             return false
+//         }
+//     }
+//     return true
+// }
+//
+//
+// console.log((isPalindrome(first)))
+//
+// const isValid = (str) => {
+//     const set = new Set([ ']', '}', ')' ])
+//     const stack = [];
+//     const map = {
+//         '}': '{',
+//         ')': '(',
+//         ']': '['
+//     }
+//
+//     for (let i = 0; i < str.length; i++) {
+//         let current = str[i]
+//         if (set.has(current)) {
+//             if (map[current] !== stack.pop()) return false
+//         } else {
+//             stack.push(current)
+//         }
+//
+//     }
+//     return stack.length === 0
+// }
+//
+// console.log(isValid('{{}]}'))
 
-console.log(isValid(variant))
+// const sumTwo = (nums, target) => {
+//     const counter = {}
+//
+//     for (let i = 0; i < nums.length; i++) {
+//         let pointer = target - nums[i]
+//         if (counter[pointer] !== undefined) {
+//             return [ counter[pointer], i ]
+//         } else {
+//             counter[nums[i]] = i
+//         }
+//
+//
+//     }
+//
+// }
+//
+// console.log(sumTwo([ 2, 7, 11, 15 ], 9))
