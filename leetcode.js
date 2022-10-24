@@ -608,41 +608,83 @@
 //     return result.join('')
 // }
 // console.log(removeDuplicates('aabbca'))
-const withDupl = [ 3, 1, 2, 4, 3 ]
-const findDuplicate = (nums) => {
-    // const map = {}
-    //
-    // for (let i = 0; i < nums.length; i++) {
-    //     if (map[nums[i]] !== undefined) {
-    //         return nums[i]
-    //     } else {
-    //         map[nums[i]] = nums[i]
-    //     }
-    // }
+// const findDuplicate = (nums) => {
+//     // const map = {}
+//     //
+//     // for (let i = 0; i < nums.length; i++) {
+//     //     if (map[nums[i]] !== undefined) {
+//     //         return nums[i]
+//     //     } else {
+//     //         map[nums[i]] = nums[i]
+//     //     }
+//     // }
+//
+//
+//     // first step: arrive both at interception
+//     let tortoise = nums[0];
+//     let hare = nums[0];
+//
+//     while (true) {
+//         tortoise = nums[tortoise];
+//         hare = nums[nums[hare]];
+//         if (tortoise === hare) break
+//     }
+//
+//     // reached interception
+//     // tortoise walks T steps from 0
+//     // hare walks T steps from current position at same speed
+//     tortoise = nums[0];
+//
+//     while (tortoise !== hare) {
+//         tortoise = nums[tortoise];
+//         hare = nums[hare];
+//     }
+//
+//     return hare;
+//
+//
+// }
+// console.log(findDuplicate(withDupl))
+// const withDupl = [ 3, 1, 2, 4, 3 ]
 
 
-    // first step: arrive both at interception
-    let tortoise = nums[0];
-    let hare = nums[0];
+// const binarySearch = (list, target) => {
+//     let start = 0
+//     let end = list.length - 1
+//
+//     while (start <= end) {
+//         let middle = Math.floor((end + start) / 2)
+//         let guess = list[middle]
+//         if (guess === target) {
+//             return middle
+//         } else if (guess > target) {
+//             end = middle - 1
+//         } else {
+//             start = middle + 1
+//         }
+//
+//     }
+//     return -1
+//
+// }
+//
+// console.log(binarySearch([ 1, 2,3, 4, 6, 8, 9 ], 3))
+
+const getEvenSummOfFibonacci = (fibbArra) => {
+    let counter = 0
 
     while (true) {
-        tortoise = nums[tortoise];
-        hare = nums[nums[hare]];
-        if (tortoise === hare) break
+        let next = fibbArra[fibbArra.length - 1] + fibbArra[fibbArra.length - 2]
+        if (next < 1_000_000) {
+            // fibbArra.push(next) //O(n) memory O(n) speed
+            fibbArra[0] = fibbArra[1] // O(1) O(n) speed
+            fibbArra[1] = next
+            if (next % 2 === 0) {
+                counter += next
+            }
+        } else {
+            return counter
+        }
     }
-
-    // reached interception
-    // tortoise walks T steps from 0
-    // hare walks T steps from current position at same speed
-    tortoise = nums[0];
-
-    while (tortoise !== hare) {
-        tortoise = nums[tortoise];
-        hare = nums[hare];
-    }
-
-    return hare;
-
-
 }
-console.log(findDuplicate(withDupl))
+console.log(getEvenSummOfFibonacci([ 1, 1 ]))
