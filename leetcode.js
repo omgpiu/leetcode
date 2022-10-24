@@ -580,14 +580,69 @@
 // }
 //
 // console.log(sumTwo([ 2, 7, 11, 15 ], 9))
-const s = "anagram", t = "nagaram"
+// const s = "anagram", t = "nagaram"
+//
+// var isAnagram = function (s, t) {
+//     if (s.length !== t.length) return false
+//     const sortedS = s.split('').sort().join('')
+//     let sortedT = t.split('').sort().join('')
+//     return  sortedS === sortedT
+//
+// };
+//
+// console.log(isAnagram(s, t))
 
-var isAnagram = function (s, t) {
-    if (s.length !== t.length) return false
-    const sortedS = s.split('').sort().join('')
-    let sortedT = t.split('').sort().join('')
-    return  sortedS === sortedT
 
-};
+// const removeDuplicates = (str) => {
+//
+//     const result = []
+//
+//     for (let i = 0; i < str.length; i++) {
+//         if (str[i] === result[result.length - 1]) {
+//             result.pop()
+//         } else {
+//             result.push(str[i])
+//         }
+//     }
+//
+//     return result.join('')
+// }
+// console.log(removeDuplicates('aabbca'))
+const withDupl = [ 3, 1, 2, 4, 3 ]
+const findDuplicate = (nums) => {
+    // const map = {}
+    //
+    // for (let i = 0; i < nums.length; i++) {
+    //     if (map[nums[i]] !== undefined) {
+    //         return nums[i]
+    //     } else {
+    //         map[nums[i]] = nums[i]
+    //     }
+    // }
 
-console.log(isAnagram(s, t))
+
+    // first step: arrive both at interception
+    let tortoise = nums[0];
+    let hare = nums[0];
+
+    while (true) {
+        tortoise = nums[tortoise];
+        hare = nums[nums[hare]];
+        if (tortoise === hare) break
+    }
+
+    // reached interception
+    // tortoise walks T steps from 0
+    // hare walks T steps from current position at same speed
+    tortoise = nums[0];
+
+    while (tortoise !== hare) {
+        tortoise = nums[tortoise];
+        hare = nums[hare];
+    }
+
+    return hare;
+
+
+}
+console.log(findDuplicate(withDupl))
