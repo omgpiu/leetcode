@@ -677,7 +677,7 @@ const getEvenSummOfFibonacci = (fibbArra) => {
         let next = fibbArra[fibbArra.length - 1] + fibbArra[fibbArra.length - 2]
         if (next < 1_000_000) {
             // fibbArra.push(next) //O(n) memory O(n) speed
-            fibbArra[0] = fibbArra[1] // O(1) O(n) speed
+            fibbArra[0] = fibbArra[1] // O(1) memory O(n) speed
             fibbArra[1] = next
             if (next % 2 === 0) {
                 counter += next
