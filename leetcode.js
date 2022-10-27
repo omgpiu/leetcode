@@ -714,21 +714,38 @@
 //     return nums.map(e=>e*e).sort((a,b)=>a-b)
 // };
 
-const isValid = (arr) => {
-    const stack = []
-    const map = {
-        ')': '(',
-        '}': '{',
-        ']': '['
-    }
-    for (let i = 0; i < s.length; i++) {
-        if (s[i] === '(' || s[i] === '[' || s[i] === '{') {
-            stack.push(s[i])
-        } else {
-            if (map[s[i]] !== stack.pop()) return false
-        }
-    }
+// const isValid = (arr) => {
+//     const stack = []
+//     const map = {
+//         ')': '(',
+//         '}': '{',
+//         ']': '['
+//     }
+//     for (let i = 0; i < s.length; i++) {
+//         if (s[i] === '(' || s[i] === '[' || s[i] === '{') {
+//             stack.push(s[i])
+//         } else {
+//             if (map[s[i]] !== stack.pop()) return false
+//         }
+//     }
+//
+//     return stack.length === 0
+//
+// }
 
-    return stack.length === 0
+// Input: logs = ["d1/","d2/","../","d21/","./"]
+// Output: 2
 
-}
+// var minOperations = function (logs) {
+//     const stack = []
+//     for (const item in logs) {
+//         console.log(item)
+//         if (item === '../') {
+//             stack.pop()
+//         } else if (item !== './') {
+//             stack.push(item)
+//         }
+//     }
+//     return stack.length
+// };
+// console.log(minOperations([ "d1/", "d2/", "../", "d21/", "./" ]))
