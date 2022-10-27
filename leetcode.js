@@ -669,22 +669,66 @@
 // }
 //
 // console.log(binarySearch([ 1, 2,3, 4, 6, 8, 9 ], 3))
+//
+// const getEvenSummOfFibonacci = (fibbArra) => {
+//     let counter = 0
+//
+//     while (true) {
+//         let next = fibbArra[fibbArra.length - 1] + fibbArra[fibbArra.length - 2]
+//         if (next < 1_000_000) {
+//             // fibbArra.push(next) //O(n) memory O(n) speed
+//             fibbArra[0] = fibbArra[1] // O(1) memory O(n) speed
+//             fibbArra[1] = next
+//             if (next % 2 === 0) {
+//                 counter += next
+//             }
+//         } else {
+//             return counter
+//         }
+//     }
+// }
+// console.log(getEvenSummOfFibonacci([ 1, 1 ]))
 
-const getEvenSummOfFibonacci = (fibbArra) => {
-    let counter = 0
+// Find All Numbers Disappeared in an Array
+// const Input = [ 4, 3, 2, 7, 8, 2, 3, 1 ]
+// const Output = [ 5, 6 ]
+// var findDisappearedNumbers = function (nums) {
+//     const set = new Set(nums)
+//     const result = []
+//     for (let i = 1; i <= nums.length; i++) {
+//         if (!set.has(i)) {
+//             result.push(i)
+//         }
+//     }
+//     return result
+// };
+//
+// console.log(findDisappearedNumbers(Input))
+//
+// Input: nums = [-4,-1,0,3,10]
+// Output: [0,1,9,16,100]
+// Explanation: After squaring, the array becomes [16,1,0,9,100].
+//     After sorting, it becomes [0,1,9,16,100].
+// var sortedSquares = function(nums) {
+//
+//     return nums.map(e=>e*e).sort((a,b)=>a-b)
+// };
 
-    while (true) {
-        let next = fibbArra[fibbArra.length - 1] + fibbArra[fibbArra.length - 2]
-        if (next < 1_000_000) {
-            // fibbArra.push(next) //O(n) memory O(n) speed
-            fibbArra[0] = fibbArra[1] // O(1) memory O(n) speed
-            fibbArra[1] = next
-            if (next % 2 === 0) {
-                counter += next
-            }
+const isValid = (arr) => {
+    const stack = []
+    const map = {
+        ')': '(',
+        '}': '{',
+        ']': '['
+    }
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] === '(' || s[i] === '[' || s[i] === '{') {
+            stack.push(s[i])
         } else {
-            return counter
+            if (map[s[i]] !== stack.pop()) return false
         }
     }
+
+    return stack.length === 0
+
 }
-console.log(getEvenSummOfFibonacci([ 1, 1 ]))
