@@ -1,3 +1,10 @@
+//Make The String Great
+//Valid Parentheses
+//Crawler Log Folder
+//Evaluate Reverse Polish
+//Remove All Adjacent Duplicates In String
+
+
 // const validMountainArray = function (arr) {
 //     if (arr.length < 3) return false;
 //     let path = "up";
@@ -218,7 +225,6 @@
 //
 // };
 // console.log(moveZeroes(nums2), nums2)
-
 
 
 // const nums = [3,1,2,4]
@@ -749,3 +755,52 @@
 //     return stack.length
 // };
 // console.log(minOperations([ "d1/", "d2/", "../", "d21/", "./" ]))
+// const s = "abBAcC"
+// var makeGood = function (s) {
+//     const st = []
+//
+//     for (let i = 0; i < s.length; i++) {
+//         st.push(s[i])
+//         if (st.length > 1) {
+//             const x = st[st.length - 1]
+//             const y = st[st.length - 2]
+//             if (Math.abs(x.charCodeAt(0) - y.charCodeAt(0)) === 32) {
+//                 st.pop()
+//                 st.pop()
+//             }
+//         }
+//     }
+//
+//
+// };
+//
+//
+// console.log(makeGood(s))
+
+
+// var peakIndexInMountainArray = function(arr) {
+//     for(let i = 0;i<arr.length;i++){
+//         if(arr[i]>arr[i+1]){
+//             return i
+//         }
+//     }
+// };
+
+//with binary search
+var peakIndexInMountainArray = function(arr) {
+
+    let left = -1
+    let right = arr.length
+
+    while (right-left >1) {
+        let middle = Math.floor((right+left)/2)
+
+        if(arr[middle] < arr[middle+1]){
+            left = middle
+        }else {
+            right = middle
+        }
+    }
+
+    return left+1
+};
