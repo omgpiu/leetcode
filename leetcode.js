@@ -787,45 +787,233 @@
 // };
 
 //with binary search
-var peakIndexInMountainArray = function(arr) {
+// var peakIndexInMountainArray = function(arr) {
+//
+//     let left = -1
+//     let right = arr.length
+//
+//     while (right-left >1) {
+//         let middle = Math.floor((right+left)/2)
+//
+//         if(arr[middle] < arr[middle+1]){
+//             left = middle
+//         }else {
+//             right = middle
+//         }
+//     }
+//
+//     return left+1
+// };
+//
+// var search = function(nums, target) {
+//     let left=0
+//     let right = nums.length -1
+//
+//     while(left <= right){
+//         let middle = Math.floor((left+right)/2)
+//         let result = nums[middle]
+//         if(result===target){
+//             return middle
+//         }
+//
+//         if(result > target){
+//             right = middle-1
+//         }else {
+//             left = middle+1
+//         }
+//
+//
+//
+//     }
+//     return -1
+//
+//
+// };
 
-    let left = -1
-    let right = arr.length
 
-    while (right-left >1) {
-        let middle = Math.floor((right+left)/2)
+// const quickSort = (array) => {
+//     if (array.length < 2) {
+//         return array
+//     } else {
+//         const middle = array[0]
+//         const leftArr = []
+//         const rightArr = []
+//
+//         for (let i = 1; i < array.length; i++) {
+//             const current = array[i]
+//             if (current < middle) {
+//                 leftArr.push(current)
+//             } else {
+//                 rightArr.push(current)
+//             }
+//         }
+//
+//         return [...quickSort(leftArr),middle,...quickSort(rightArr)]
+//     }
+//
+// }
+//
+// console.log(quickSort([3,5,4,2,1]))
 
-        if(arr[middle] < arr[middle+1]){
-            left = middle
-        }else {
-            right = middle
+
+// let result;
+// let numObj = {};
+// for (let i = 0; i < nums.length; i++) {
+//     let pointer = target - nums[i];
+//
+//     if (numObj[pointer] !== undefined) {
+//         result = [ numObj[pointer], i ]
+//     }
+//     numObj[nums[i]] = i
+//
+// }
+
+// заводим объекм куда будем складывать значение/индекс
+// высчитываем разницу между таргетом и текущим значением
+// если в нашем объекте нет ключа по разнице между таргетом кладем в объект как
+
+
+// nums = [  11, 15,7, 2,], target = 9
+// //                 ^
+// // {11:0,15:1,7:2,
+//
+//
+// var twoSum = function (nums, target) {
+//     const result = {}
+//
+//     for (let i = 0; i < nums.length; i++) {
+//         let pointer = target - nums[i]
+//         if (result[pointer] === undefined) {
+//             result[nums[i]] = i
+//         } else {
+//             return [ result[pointer], i ]
+//         }
+//
+//
+//
+//     }
+//
+// };
+// console.log(twoSum(nums, target))
+//
+// // "()[]{}"
+// var isValid = function(s) {
+//     const stack = []
+//     const map = {
+//         ')':'(',
+//         "]":'[',
+//         "}":"{"
+//     }
+//
+//     for(let i=0;i<s.length;i++){
+//
+//         if(map[s[i]] !== undefined){
+//             if(map[s[i]] !== stack.pop()) return false
+//
+//         }else{
+//             stack.push(s[i])
+//         }
+//
+//
+//
+//
+//
+//
+//     }
+//
+//     return stack.length === 0
+// };
+//
+// var isPalindrome = function(s) {
+//     const regExp = /[^a-zA-Z0-9]/g
+//     const replacedStr= s.replace(regExp,'').toLowerCase()
+//     const secondRepl = s.replace(regExp,'').toLowerCase().split('').reverse().join('')
+//     return replacedStr === secondRepl
+// };
+// console.log(isPalindrome( "A man, a plan, a canal: Panama"))
+// var maxProfit = function(prices) {
+//     let profit=0;
+//     let whatToBuy = prices[0]
+//
+//     for(let i=0;i<prices.length;i++){
+//         if(whatToBuy > prices[i]){
+//             whatToBuy = prices[i]
+//         }
+//
+//         const currentProfit = prices[i]-whatToBuy
+//         if(currentProfit>profit){
+//             profit=currentProfit
+//         }
+//
+//
+//     }
+//
+//
+//
+//
+//     return profit;
+// };
+// var isAnagram = function (s, t) {
+//     if (s.length !== t.length) return false
+//
+//     const first = s.split('').sort().join('')
+//     const second = t.split('').sort().join('')
+//     console.log(first)
+//     console.log(second)
+//     return first === second
+// };
+// isAnagram("anagram", "nagaram")
+//
+// var search = function (nums, target) {
+//     let low = 0
+//     let high = nums.length - 1
+//
+//
+//     while (high > low) {
+//         let middle = Math.floor((high + low) / 2)
+//         let guess = nums[middle]
+//
+//         if (guess === target) {
+//             return middle
+//         }
+//         if (guess < target) {
+//             low = middle+1
+//         } else {
+//             high = middle -1
+//         }
+//
+//     }
+//
+//
+//     return -1
+//
+// };
+const isSeller = (name) => name.length > 10
+const graph = {
+    'you': [ 'alise', 'mama', 'papa', 'hello' ],
+    'hello': [ 'skjdfksjdfkdjshfkjdshfkjsdfkjsdhfkj' ]
+
+}
+const graphSearch = (name) => {
+    const que = []
+    console.log(que)
+    const searched = {}
+    que.push(...graph[name])
+    while (que.length > 0) {
+        let person = que.shift()
+        if (searched[person] === undefined) {
+            if (isSeller(person)) {
+                return person
+            } else {
+                searched[person] = 1
+                if(Array.isArray(graph[person])){
+                    que.push(...graph[person])
+                }
+            }
         }
     }
+    console.log(que)
+    return false
 
-    return left+1
-};
-
-var search = function(nums, target) {
-    let left=0
-    let right = nums.length -1
-
-    while(left <= right){
-        let middle = Math.floor((left+right)/2)
-        let result = nums[middle]
-        if(result===target){
-            return middle
-        }
-
-        if(result > target){
-            right = middle-1
-        }else {
-            left = middle+1
-        }
-
-
-
-    }
-    return -1
-
-
-};
+}
+console.log('graphSearch() :', graphSearch('you'))
