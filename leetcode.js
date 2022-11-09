@@ -1017,3 +1017,45 @@ const graphSearch = (name) => {
 
 }
 console.log('graphSearch() :', graphSearch('you'))
+
+const list = [ {
+    key: 'a',
+    value: '1'
+},
+    {
+        key: 'a',
+        value: '2'
+    },
+    {
+        key: 'b',
+        value: '3'
+    },
+    {
+        key: 'b',
+        value: '1'
+    }
+]
+
+const bla = () => {
+
+    const result = {}
+    const arr = []
+
+    for (let i = 0; i < list.length; i++) {
+        if (result[list[i].key]) {
+            const middle = [ ...result[list[i].key], Number(list[i].value) ]
+            result[list[i].key] = middle
+        } else {
+            result[list[i].key] = [ Number(list[i].value) ]
+        }
+    }
+    for (let key of Object.entries(result)) {
+        arr.push({
+            key: key[0],
+            value: key[1].sort((a, b) => a - b),
+            count: key[1].length
+        })
+    }
+    return arr
+}
+console.log(bla())
