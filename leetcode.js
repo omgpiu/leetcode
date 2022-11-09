@@ -1036,7 +1036,7 @@ const list = [ {
     }
 ]
 
-const bla = () => {
+const newSortFunc = () => {
 
     const result = {}
     const arr = []
