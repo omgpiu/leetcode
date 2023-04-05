@@ -104,14 +104,14 @@
 //         }
 //         if (arr[i] > highest) {
 //             let breakPoint = arr[i]
-//             arr[i]=highest
+//             arr[i] = highest
 //             highest = breakPoint
 //
 //         } else {
 //             arr[i] = highest
 //         }
-//         if(i===0){
-//             arr[arr.length-2]=preLast
+//         if (i === 0) {
+//             arr[arr.length - 2] = preLast
 //         }
 //
 //     }
@@ -913,12 +913,6 @@
 //         }else{
 //             stack.push(s[i])
 //         }
-//
-//
-//
-//
-//
-//
 //     }
 //
 //     return stack.length === 0
@@ -958,8 +952,6 @@
 //
 //     const first = s.split('').sort().join('')
 //     const second = t.split('').sort().join('')
-//     console.log(first)
-//     console.log(second)
 //     return first === second
 // };
 // isAnagram("anagram", "nagaram")
@@ -988,74 +980,517 @@
 //     return -1
 //
 // };
-const isSeller = (name) => name.length > 10
-const graph = {
-    'you': [ 'alise', 'mama', 'papa', 'hello' ],
-    'hello': [ 'skjdfksjdfkdjshfkjdshfkjsdfkjsdhfkj' ]
 
+
+// const brackatesMap = {
+//     ')': '(',
+//     ']': '[',
+//     '}': '{'
+// }
+//
+// const isClosed = (str) => [')', ']', '}'].includes(str)
+// const test = "()[]{}"
+// const isValid = (str) => {
+//     const stack = []
+//     for (let i = 0; i < str.length; i++) {
+//         const current = str[i]
+//         if(isClosed(current)){
+//             if(stack.pop() !== brackatesMap[current]) return false
+//
+//         } else{
+//             stack.push(current)
+//         }
+//
+//     }
+//
+//     return stack.length === 0
+// }
+//
+// console.log(isValid(test))
+
+
+// function binarySearch(arr, target) {
+//     let left = 0;
+//     let right = arr.length - 1;
+//
+//     while (left <= right) {
+//         let mid = Math.floor((left + right) / 2);
+//         let midIdx = arr[mid]
+//
+//         if (midIdx === target) {
+//             return mid;
+//         } else if (midIdx< target) {
+//             left = mid + 1;
+//         } else {
+//             right = mid - 1;
+//         }
+//     }
+//
+//     return -1;
+// }
+//
+//
+//
+
+
+// const test = [[1,3],[2,6],[8,10],[15,18]]
+// const merge = (intervals) => {
+//     if (!intervals.length) return intervals;
+//
+//     intervals.sort((a, b) => a[0] - b[0]);
+//     console.log(intervals)
+//     let res = [intervals[0]];
+//     console.log(res)
+//
+//     for (let i = 1; i < intervals.length; i++) {
+//         if (intervals[i][0] <= res[res.length-1][1]) {
+//             res[res.length-1][1] = Math.max(intervals[i][1], res[res.length-1][1]);
+//         } else {
+//             res.push(intervals[i]);
+//         }
+//     }
+//
+//     return res;
+// };
+//
+// merge(test)
+
+
+
+// https://leetcode.com/problems/merge-k-sorted-lists/
+// class ListNode {
+//     constructor(val, next = null) {
+//         this.val = val;
+//         this.next = next;
+//     }
+// }
+
+// const mergeKLists = (lists) => {
+//     const mergeTwoLists = (l1, l2) => {
+//         const dummyHead = new ListNode(0);
+//         let tail = dummyHead;
+//
+//         while (l1 && l2) {
+//             if (l1.val < l2.val) {
+//                 tail.next = l1;
+//                 l1 = l1.next;
+//             } else {
+//                 tail.next = l2;
+//                 l2 = l2.next;
+//             }
+//             tail = tail.next;
+//         }
+//
+//         tail.next = l1 || l2;
+//         return dummyHead.next;
+//     }
+//
+//     if (!lists.length) return null;
+//
+//     while (lists.length > 1) {
+//         const l1 = lists.shift();
+//         const l2 = lists.shift();
+//         const merged = mergeTwoLists(l1, l2);
+//         lists.push(merged);
+//     }
+//
+//     return lists[0];
+// };
+
+// https://leetcode.com/problems/linked-list-cycle/
+// class ListNode {
+//     constructor(val) {
+//         this.val = val;
+//         this.next = null;
+//     }
+// }
+//
+// const hasCycle = (head) => {
+//     let slow = head;
+//     let fast = head;
+//
+//     while (fast && fast.next) {
+//         slow = slow.next;
+//         fast = fast.next.next;
+//
+//         if (slow === fast) {
+//             return true;
+//         }
+//     }
+//
+//     return false;
+// };
+
+// https://leetcode.com/problems/add-two-numbers/
+// class ListNode {
+//     constructor(val) {
+//         this.val = val;
+//         this.next = null;
+//     }
+// }
+//
+// const addTwoNumbers = (l1, l2) => {
+//     const dummyHead = new ListNode(0);
+//     let curr = dummyHead;
+//     let carry = 0;
+//
+//     while (l1 || l2 || carry) {
+//         const sum = (l1 ? l1.val : 0) + (l2 ? l2.val : 0) + carry;
+//         carry = Math.floor(sum / 10);
+//         curr.next = new ListNode(sum % 10);
+//         curr = curr.next;
+//         l1 = l1 ? l1.next : null;
+//         l2 = l2 ? l2.next : null;
+//     }
+//
+//     return dummyHead.next;
+// };
+
+// https://leetcode.com/problems/reverse-linked-list/
+// class ListNode {
+//     constructor(val) {
+//         this.val = val;
+//         this.next = null;
+//     }
+// }
+//
+// const reverseList = (head) => {
+//     let prev = null;
+//     let curr = head;
+//
+//     while (curr) {
+//         const next = curr.next;
+//         curr.next = prev;
+//         prev = curr;
+//         curr = next;
+//     }
+//
+//     return prev;
+// };
+
+
+// https://leetcode.com/problems/binary-search/
+// const ser = (arr, target) => {
+//     let left = 0
+//     let right = arr.length - 1
+//
+//     while (left <= right) {
+//         let mid = Math.floor((right+left)/2)
+//         if(arr[mid]===target) return mid
+//
+//         if(arr[mid] < target){
+//             left = mid +1
+//         }else {
+//             right = mid -1
+//         }
+//
+//
+//     }
+//     return -1
+// }
+
+//
+// https://leetcode.com/problems/guess-number-higher-or-lower/
+// const guessNumber = (n) => {
+//     let left = 1;
+//     let right = n;
+//
+//     while (left <= right) {
+//         const mid = Math.floor((right + left) / 2);
+//         const result = guess(mid);
+//
+//         if (result === 0) {
+//             return mid;
+//         } else if (result === 1) {
+//             left = mid + 1;
+//         } else {
+//             right = mid - 1;
+//         }
+//     }
+// };
+
+
+
+// https://leetcode.com/problems/search-a-2d-matrix/
+// const searchMatrix = (matrix, target) => {
+//     if (!matrix.length || !matrix[0].length) return false;
+//
+//     const rows = matrix.length;
+//     const cols = matrix[0].length;
+//     let left = 0;
+//     let right = rows * cols - 1;
+//
+//     while (left <= right) {
+//         const mid = Math.floor((left + right) / 2);
+//         const value = matrix[Math.floor(mid / cols)][mid % cols];
+//
+//         if (value === target) {
+//             return true;
+//         } else if (value < target) {
+//             left = mid + 1;
+//         } else {
+//             right = mid - 1;
+//         }
+//     }
+//
+//     return false;
+// };
+
+// https://leetcode.com/problems/search-in-rotated-sorted-array/
+// function search(nums, target) {
+//     let left = 0;
+//     let right = nums.length - 1;
+//
+//     // find the pivot index using binary search
+//     while (left < right) {
+//         let mid = Math.floor((left + right) / 2);
+//
+//         if (nums[mid] > nums[right]) {
+//             left = mid + 1;
+//         } else {
+//             right = mid;
+//         }
+//     }
+//
+//     let pivot = left;
+//     left = 0;
+//     right = nums.length - 1;
+//
+//     // determine which subarray the target belongs to and perform binary search
+//     if (target >= nums[pivot] && target <= nums[right]) {
+//         left = pivot;
+//     } else {
+//         right = pivot - 1;
+//     }
+//
+//     while (left <= right) {
+//         let mid = Math.floor((left + right) / 2);
+//
+//         if (nums[mid] === target) {
+//             return mid;
+//         } else if (nums[mid] < target) {
+//             left = mid + 1;
+//         } else {
+//             right = mid - 1;
+//         }
+//     }
+//
+//     return -1; // target not found
+// }
+//
+
+// https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+// function findMin(nums) {
+//     let left = 0;
+//     let right = nums.length - 1;
+//
+//     while (left < right) {
+//         const mid = Math.floor((left + right) / 2);
+//
+//         if (nums[mid] > nums[right]) {
+//             left = mid + 1;
+//         } else {
+//             right = mid;
+//         }
+//     }
+//
+//     return nums[left];
+// }
+
+
+
+
+function flatten(arr) {
+    return arr.reduce((acc, val) => Array.isArray(val) ? acc.concat(flatten(val)) : acc.concat(val), []);
 }
-const graphSearch = (name) => {
-    const que = []
-    console.log(que)
-    const searched = {}
-    que.push(...graph[name])
-    while (que.length > 0) {
-        let person = que.shift()
-        if (searched[person] === undefined) {
-            if (isSeller(person)) {
-                return person
-            } else {
-                searched[person] = 1
-                if(Array.isArray(graph[person])){
-                    que.push(...graph[person])
-                }
+
+function bind(fn, context, ...args) {
+    return function(...newArgs) {
+        return fn.apply(context, args.concat(newArgs));
+    };
+}
+
+Function.prototype.myBind = function(context, ...args) {
+    const that = this;
+    return function(...newArgs) {
+        return that.apply(context, args.concat(newArgs));
+    };
+};
+
+function add(x) {
+    function next(y) {
+        return add(x + y);
+    }
+
+    next.valueOf = function() {
+        return x;
+    };
+
+    return next;
+}
+
+
+function promiseAll(promises) {
+    return new Promise((resolve, reject) => {
+        const results = [];
+        let count = promises.length;
+
+        if (count === 0) {
+            resolve(results);
+            return;
+        }
+
+        function onResolve(i, value) {
+            results[i] = value;
+            count--;
+
+            if (count === 0) {
+                resolve(results);
             }
         }
-    }
-    console.log(que)
-    return false
 
+        promises.forEach((promise, i) => {
+            promise.then(value => onResolve(i, value))
+                .catch(error => reject(error));
+        });
+    });
 }
-console.log('graphSearch() :', graphSearch('you'))
 
-const list = [ {
-    key: 'a',
-    value: '1'
-},
-    {
-        key: 'a',
-        value: '2'
-    },
-    {
-        key: 'b',
-        value: '3'
-    },
-    {
-        key: 'b',
-        value: '1'
-    }
-]
 
-const newSortFunc = () => {
-
-    const result = {}
-    const arr = []
-
-    for (let i = 0; i < list.length; i++) {
-        if (result[list[i].key]) {
-            const middle = [ ...result[list[i].key], Number(list[i].value) ]
-            result[list[i].key] = middle
+function flatten(arr) {
+    let flatArr = [];
+    while (arr.length) {
+        const current = arr.shift();
+        if (Array.isArray(current)) {
+            arr.unshift(...current);
         } else {
-            result[list[i].key] = [ Number(list[i].value) ]
+            flatArr.push(current);
         }
     }
-    for (let key of Object.entries(result)) {
-        arr.push({
-            key: key[0],
-            value: key[1].sort((a, b) => a - b),
-            count: key[1].length
-        })
-    }
-    return arr
+    return flatArr;
 }
-console.log(bla())
+
+class MyPromise {
+    constructor(executor) {
+        this.state = 'pending';
+        this.value = undefined;
+        this.reason = undefined;
+
+        const resolve = value => {
+            if (this.state === 'pending') {
+                this.state = 'fulfilled';
+                this.value = value;
+            }
+        };
+
+        const reject = reason => {
+            if (this.state === 'pending') {
+                this.state = 'rejected';
+                this.reason = reason;
+            }
+        };
+
+        try {
+            executor(resolve, reject);
+        } catch (error) {
+            reject(error);
+        }
+    }
+
+    then(onFulfilled, onRejected) {
+        if (this.state === 'fulfilled') {
+            return new MyPromise((resolve, reject) => {
+                try {
+                    const result = onFulfilled(this.value);
+                    if (result instanceof MyPromise) {
+                        result.then(resolve, reject);
+                    } else {
+                        resolve(result);
+                    }
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        } else if (this.state === 'rejected') {
+            return new MyPromise((resolve, reject) => {
+                try {
+                    const result = onRejected(this.reason);
+                    if (result instanceof MyPromise) {
+                        result.then(resolve, reject);
+                    } else {
+                        resolve(result);
+                    }
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
+    }
+
+    catch(onRejected) {
+        return this.then(null, onRejected);
+    }
+
+    static resolve(value) {
+        return new MyPromise(resolve => resolve(value));
+    }
+
+    static reject(reason) {
+        return new MyPromise((resolve, reject) => reject(reason));
+    }
+
+    static all(promises) {
+        return new MyPromise((resolve, reject) => {
+            const results = [];
+            let count = promises.length;
+
+            if (count === 0) {
+                resolve(results);
+                return;
+            }
+
+            function onResolve(i, value) {
+                results[i] = value;
+                count--;
+
+                if (count === 0) {
+                    resolve(results);
+                }
+            }
+
+            promises.forEach((promise, i) => {
+                promise.then(value => onResolve(i, value))
+                    .catch(error => reject(error));
+            });
+        });
+    }
+
+    static race(promises) {
+        return new MyPromise((resolve, reject) => {
+            promises.forEach(promise => {
+                promise.then(resolve)
+                    .catch(reject);
+            });
+        });
+    }
+}
+
+
+const data = [
+    { id: 1, age: 20, name: "Иван", country: "Russia", registred: true },
+    { id: 2, age: 30, name: "Дима", country: "Usa", registred: true },
+    { id: 3, age: 25, name: "Федор", country: "Russia", registred: true },
+    { id: 4, age: 20, name: "Коля", country: "Usa", registred: false },
+    { id: 5, age: 30, name: "Денис", country: "Russia", registred: true },
+    { id: 6, age: 50, name: "Жека", country: "Usa", registred: true },
+    { id: 7, age: 20, name: "Гена", country: "Russia", registred: false }
+];
+
+const result = data.reduce((acc, item) => {
+    const { id, country, ...rest } = item;
+    if (!acc[country]) {
+        acc[country] = {};
+    }
+    acc[country][id] = rest;
+    return acc;
+}, {});
