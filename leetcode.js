@@ -2064,24 +2064,63 @@ function quicksort(arr) {
 
 // Input: logs = ["d1/","d2/","../","d21/","./"]
 // Output: 2
-const minOperations = (inputArray) => {
-    const stack = [];
-    for (const folder of inputArray) {
-        switch (folder) {
-            case "../":
-                if (stack.length) {
-                    stack.pop();
-                }
-                break;
-            case "./":
-                break;
-            default:
-                stack.push(folder);
-                break;
+// const minOperations = (inputArray) => {
+//     const stack = [];
+//     for (const folder of inputArray) {
+//         switch (folder) {
+//             case "../":
+//                 if (stack.length) {
+//                     stack.pop();
+//                 }
+//                 break;
+//             case "./":
+//                 break;
+//             default:
+//                 stack.push(folder);
+//                 break;
+//         }
+//     }
+//
+//     return stack.length
+// }
+//
+// console.log(minOperations(["d1/","d2/","../","d21/","./"]))
+const tokens = ["2", "1", "+", "3", "*"]
+
+const evaluate = ({first, second, operation}) => {
+    switch (operation) {
+        case '+': {
+            return second + first
+        }
+        case '-': {
+            return first - second
+        }
+        case '/': {
+            return Math.trunc(first / second)
+        }
+        default: {
+            return second * first
         }
     }
-
-    return stack.length
 }
 
-console.log(minOperations(["d1/","d2/","../","d21/","./"]))
+const evalRPN = (tokens) => {
+
+    const stack = []
+
+    for (const token of tokens) {
+        if (['*', '/', '+', '-'].includes(token)) {
+            const second = stack.pop()
+            const first = stack.pop()
+            stack.push(evaluate({first, second, operation: token}))
+        } else {
+            stack.push(Number(token))
+        }
+
+    }
+
+    return stack
+};
+
+
+console.log(evalRPN(tokens))
