@@ -1370,7 +1370,6 @@ function flatten(arr) {
 }
 
 
-
 // class MyPromise {
 //     constructor(executor) {
 //         this.state = 'pending';
@@ -2044,3 +2043,46 @@ function quicksort(arr) {
 //     }
 // })
 // console.log(res)
+
+// const str = 'abbaca'
+// const removeDuplicates = (str) => {
+//
+//     const stack = []
+//
+//     for (let i = 0; i < str.length; i++) {
+//         if (stack.length && str[i] === stack.at(-1)) {
+//             stack.pop()
+//         } else {
+//             stack.push(str[i])
+//         }
+//
+//     }
+//
+//     return stack.join('')
+// }
+// console.log(removeDuplicates(str))
+
+// Input: logs = ["d1/","d2/","../","d21/","./"]
+// Output: 2
+const minOperations = (inputArray) => {
+    const stack = [];
+    for (let i = 0; i < inputArray.length; i++) {
+        let current = inputArray[i];
+        switch (current) {
+            case "../":
+                if (stack.length) {
+                    stack.pop();
+                }
+                break;
+            case "./":
+                break;
+            default:
+                stack.push(current);
+                break;
+        }
+    }
+
+    return stack.length
+}
+
+console.log(minOperations(["d1/","d2/","../","d21/","./"]))
