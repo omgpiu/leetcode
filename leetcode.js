@@ -1056,7 +1056,6 @@
 // merge(test)
 
 
-
 // https://leetcode.com/problems/merge-k-sorted-lists/
 // class ListNode {
 //     constructor(val, next = null) {
@@ -1210,7 +1209,6 @@
 // };
 
 
-
 // https://leetcode.com/problems/search-a-2d-matrix/
 // const searchMatrix = (matrix, target) => {
 //     if (!matrix.length || !matrix[0].length) return false;
@@ -1298,65 +1296,66 @@
 // }
 
 
-
-
-function flatten(arr) {
-    return arr.reduce((acc, val) => Array.isArray(val) ? acc.concat(flatten(val)) : acc.concat(val), []);
-}
-
-function bind(fn, context, ...args) {
-    return function(...newArgs) {
-        return fn.apply(context, args.concat(newArgs));
-    };
-}
-
-Function.prototype.myBind = function(context, ...args) {
-    const that = this;
-    return function(...newArgs) {
-        return that.apply(context, args.concat(newArgs));
-    };
-};
+// function flatten(arr) {
+//     return arr.reduce((acc, val) => Array.isArray(val) ? acc.concat(flatten(val)) : acc.concat(val), []);
+// }
+//
+// function bind(fn, context, ...args) {
+//     return function (...newArgs) {
+//         return fn.apply(context, args.concat(newArgs));
+//     };
+// }
+//
+// Function.prototype.myBind = function (context, ...args) {
+//     const that = this;
+//     return function (...newArgs) {
+//         return that.apply(context, args.concat(newArgs));
+//     };
+// };
 
 function add(x) {
     function next(y) {
         return add(x + y);
     }
 
-    next.valueOf = function() {
+    next.valueOf = function () {
         return x;
     };
 
     return next;
 }
 
-
-function promiseAll(promises) {
-    return new Promise((resolve, reject) => {
-        const results = [];
-        let count = promises.length;
-
-        if (count === 0) {
-            resolve(results);
-            return;
-        }
-
-        function onResolve(i, value) {
-            results[i] = value;
-            count--;
-
-            if (count === 0) {
-                resolve(results);
-            }
-        }
-
-        promises.forEach((promise, i) => {
-            promise.then(value => onResolve(i, value))
-                .catch(error => reject(error));
-        });
-    });
+function curry(fn) {
+    return (...args) => args.length < fn.length ? curry(fn.bind(null, ...args)) : fn(...args);
 }
 
-
+// function promiseAll(promises) {
+//     return new Promise((resolve, reject) => {
+//         const results = [];
+//         let count = promises.length;
+//
+//         if (count === 0) {
+//             resolve(results);
+//             return;
+//         }
+//
+//         function onResolve(i, value) {
+//             results[i] = value;
+//             count--;
+//
+//             if (count === 0) {
+//                 resolve(results);
+//             }
+//         }
+//
+//         promises.forEach((promise, i) => {
+//             promise.then(value => onResolve(i, value))
+//                 .catch(error => reject(error));
+//         });
+//     });
+// }
+//
+//
 function flatten(arr) {
     let flatArr = [];
     while (arr.length) {
@@ -1370,127 +1369,678 @@ function flatten(arr) {
     return flatArr;
 }
 
-class MyPromise {
-    constructor(executor) {
-        this.state = 'pending';
-        this.value = undefined;
-        this.reason = undefined;
 
-        const resolve = value => {
-            if (this.state === 'pending') {
-                this.state = 'fulfilled';
-                this.value = value;
-            }
-        };
 
-        const reject = reason => {
-            if (this.state === 'pending') {
-                this.state = 'rejected';
-                this.reason = reason;
-            }
-        };
+// class MyPromise {
+//     constructor(executor) {
+//         this.state = 'pending';
+//         this.value = undefined;
+//         this.reason = undefined;
+//
+//         const resolve = value => {
+//             if (this.state === 'pending') {
+//                 this.state = 'fulfilled';
+//                 this.value = value;
+//             }
+//         };
+//
+//         const reject = reason => {
+//             if (this.state === 'pending') {
+//                 this.state = 'rejected';
+//                 this.reason = reason;
+//             }
+//         };
+//
+//         try {
+//             executor(resolve, reject);
+//         } catch (error) {
+//             reject(error);
+//         }
+//     }
+//
+//     then(onFulfilled, onRejected) {
+//         if (this.state === 'fulfilled') {
+//             return new MyPromise((resolve, reject) => {
+//                 try {
+//                     const result = onFulfilled(this.value);
+//                     if (result instanceof MyPromise) {
+//                         result.then(resolve, reject);
+//                     } else {
+//                         resolve(result);
+//                     }
+//                 } catch (error) {
+//                     reject(error);
+//                 }
+//             });
+//         } else if (this.state === 'rejected') {
+//             return new MyPromise((resolve, reject) => {
+//                 try {
+//                     const result = onRejected(this.reason);
+//                     if (result instanceof MyPromise) {
+//                         result.then(resolve, reject);
+//                     } else {
+//                         resolve(result);
+//                     }
+//                 } catch (error) {
+//                     reject(error);
+//                 }
+//             });
+//         }
+//     }
+//
+//     catch(onRejected) {
+//         return this.then(null, onRejected);
+//     }
+//
+//     static resolve(value) {
+//         return new MyPromise(resolve => resolve(value));
+//     }
+//
+//     static reject(reason) {
+//         return new MyPromise((resolve, reject) => reject(reason));
+//     }
+//
+//     static all(promises) {
+//         return new MyPromise((resolve, reject) => {
+//             const results = [];
+//             let count = promises.length;
+//
+//             if (count === 0) {
+//                 resolve(results);
+//                 return;
+//             }
+//
+//             function onResolve(i, value) {
+//                 results[i] = value;
+//                 count--;
+//
+//                 if (count === 0) {
+//                     resolve(results);
+//                 }
+//             }
+//
+//             promises.forEach((promise, i) => {
+//                 promise.then(value => onResolve(i, value))
+//                     .catch(error => reject(error));
+//             });
+//         });
+//     }
+//
+//     static race(promises) {
+//         return new MyPromise((resolve, reject) => {
+//             promises.forEach(promise => {
+//                 promise.then(resolve)
+//                     .catch(reject);
+//             });
+//         });
+//     }
+// }
+//
+//
+// const data = [
+//     {id: 1, age: 20, name: "Иван", country: "Russia", registred: true},
+//     {id: 2, age: 30, name: "Дима", country: "Usa", registred: true},
+//     {id: 3, age: 25, name: "Федор", country: "Russia", registred: true},
+//     {id: 4, age: 20, name: "Коля", country: "Usa", registred: false},
+//     {id: 5, age: 30, name: "Денис", country: "Russia", registred: true},
+//     {id: 6, age: 50, name: "Жека", country: "Usa", registred: true},
+//     {id: 7, age: 20, name: "Гена", country: "Russia", registred: false}
+// ];
+//
+// const result = data.reduce((acc, item) => {
+//     const {id, country, ...rest} = item;
+//     if (!acc[country]) {
+//         acc[country] = {};
+//     }
+//     acc[country][id] = rest;
+//     return acc;
+// }, {});
 
-        try {
-            executor(resolve, reject);
-        } catch (error) {
-            reject(error);
+
+// Первая задача: нам дан пароль в виде массива целых положительных чисел,
+// и представим что есть кодовый замок с известной шириной и высотой (например такой:
+//  1   2   3   4
+// 5   6   7   8
+// 9 10 11 12
+// )
+// Кодовый замок может быть любого размера, но он всегда прямоугольной или квадратной формы.
+//     Чтобы ввести код, пользователь может передвигать палец влево, вправо, вниз, вверх и по диагонали на 1 клетку.
+//     Написать функцию, которая посчитает, за какое число движений пальца по клеткам с числами кодового замка пользователь сможет набрать данный пароль.
+//
+// Решение начинается с создания функции minMovementsToEnterPassword, которая принимает два аргумента: массив password, содержащий заданный пароль, и двумерный массив lock, представляющий кодовый замок. Функция начинает с инициализации переменных movements и currPos. Переменная movements отвечает за количество движений пальца по клеткам кодового замка, а currPos - за текущую позицию пальца на замке. Изначально палец находится в верхнем левом углу замка, поэтому начальная позиция пальца равна [0, 0].
+//
+// Затем функция перебирает элементы массива password в цикле for. Для каждого элемента value функция находит позицию элемента на кодовом замке с помощью вспомогательной функции findValuePosition. Функция findValuePosition принимает два аргумента: значение, которое нужно найти, и массив, в котором нужно найти это значение. Функция перебирает все элементы массива lock во вложенном цикле и сравнивает их со значением value. Когда находится соответствующий элемент, функция возвращает его позицию в виде массива [i, j], где i - индекс строки, а j - индекс столбца.
+//
+// После того, как функция findValuePosition находит позицию элемента на кодовом замке, функция minMovementsToEnterPassword вычисляет количество движений пальца по клеткам замка, необходимое для того, чтобы переместить палец с текущей позиции currPos на позицию targetPos, где targetPos - позиция элемента на замке. Для этого используется формула: Math.abs(targetPos[0] - currPos[0]) + Math.abs(targetPos[1] - currPos[1]). Полученное значение добавляется к переменной movements, а затем текущая позиция пальца обновляется на позицию targetPos.
+//
+// В конце цикла функция minMovementsToEnterPassword возвращает переменную movements, которая содержит общее количество движений пальца по клеткам кодового замка, необходимое для ввода заданного пароля.
+
+//x0 = (n-1)%width
+//y0 = floor((n-1)/width)
+// const calcSteps = (pass, width) => {
+//     let steps = 0
+//     let x0, y0, x1, y1;
+//     for (let i = 1; i < pass.length; i++) {
+//         x0 = (pass[i - 1] - 1) % width
+//         y0 = Math.floor((pass[i - 1] - 1) / width)
+//         x1 = (pass[i] - 1) % width
+//         y1 = Math.floor((pass[i] - 1) / width)
+//
+//         steps += Math.max(Math.abs(x0 - x1), Math.abs(y0 - y1))
+//
+//
+//     }
+//     return steps
+// }
+//
+// console.log(calcSteps([1, 11, 2], 4))
+
+//     Вторая задача: дан список температур по дням, все температуры разные.
+//     Для каждого дня найти, через сколько дней станет теплее (если теплее не станет, то ответ 0).
+//
+// in: [14, 13, 15, 11, 9, 12, 16]
+// out: [2, 1, 4, 2, 1, 1, 0]
+// function findWarmerDays(temperatures) {
+//     const length = temperatures.length
+// // результирующий массив на длинну температу
+//     // перебор брутфорсом
+//     // если следующая температура выше, записываем разницу между индексами и складываем в резалт по первому индексу
+//     const warmDays = new Array(length).fill(0)
+//
+//     for(let i = 0;i<length;i++){
+//         for(let j = i+1;j<length;j++){
+//             if(temperatures[j]>temperatures[i]){
+//                 warmDays[i]=j-i
+//                 break
+//             }
+//         }
+//
+//     }
+//     return warmDays
+// //
+// // }
+//
+//
+// function findWarmerDays(temperatures) {
+//     const length = temperatures.length
+// // результирующий массив на длинну температу
+//     // перебор брутфорсом
+//     // если следующая температура выше, записываем разницу между индексами и складываем в резалт по первому индексу
+//     const warmDays = new Array(length).fill(0)
+//
+//     for(let i = 0;i<length;i++){
+//         for(let j = i+1;j<length;j++){
+//             if(temperatures[j]>temperatures[i]){
+//                 warmDays[i]=j-i
+//                 break
+//             }
+//         }
+//
+//     }
+//     return warmDays
+//
+// }
+//
+// function findWarmerDays(temperatures) {
+//     const length = temperatures.length
+//     const stack = []
+//     const warmDays = new Array(length).fill(0)
+//
+//     for(let i = 0;i<length;i++){
+//         while(stack.length > 0 && temperatures[i]> temperatures[stack.at(-1)]){
+//             const lastStackIdx = stack.pop()
+//             warmDays[lastStackIdx] = i - lastStackIdx
+//         }
+//         stack.push(i)
+//     }
+//
+//     return warmDays
+//
+//
+// }
+//
+// const input = [14, 13, 17, 11, 9, 12, 16];
+// const output = findWarmerDays(input);
+// console.log(output); // [2, 1, 0, 2, 1, 1, 0]
+
+
+// const map = {
+//     ')': '(',
+//     ']': '[',
+//     '}': '{'
+// }
+// const getIsClosed = (elem) => [']', '}', ')'].includes(elem)
+
+
+// const isValid = (str) => {
+//     const stack = []
+//
+//     for (let i = 0; i < str.length; i++) {
+//         const current = str[i]
+//         if (getIsClosed(current)) {
+//             if (stack.pop() !== map[current]) return false
+//         }else {
+//             stack.push(current)
+//         }
+//
+//
+//
+//     }
+//
+//     return stack.length === 0
+// }
+//
+//
+// console.log(isValid('[[{]]'))
+
+
+// const getWarmDays = (temps) => {
+//     const length = temps.length
+//     const warmDays = new Array(length).fill(0)
+//     const stack = []
+//
+//     for (let i = 0; i < length; i++) {
+//         while (stack.length >0 && temps[i]>temps[stack.at(-1)]){
+//             const lastStackIdx = stack.pop()
+//             warmDays[lastStackIdx] = i-lastStackIdx
+//         }
+//         stack.push(i)
+//
+//     }
+//
+//
+//     return warmDays
+// }
+//
+// console.log(getWarmDays([14, 13, 17, 11, 9, 12, 16]))
+
+
+// const getMovements = (pass, width) => {
+//     let x0, y0, x1, y1
+//     let steps = 0
+//
+//     for (let i = 1; i < pass.length; i++) {
+//         x0 = (pass[i - 1]-1 )% width
+//         y0 = Math.floor((pass[i-1]-1)/width)
+//         x1 = (pass[i]-1)% width
+//         y1 = Math.floor((pass[i]-1)/width)
+//         steps += Math.max(Math.abs(x0-x1),Math.abs(y0-y1))
+//
+//     }
+//
+//     return steps
+// }
+//
+//  console.log(getMovements([1, 11, 2], 4))
+
+
+// // Для данных массивов найти число, которое встречается во всех трех массивах
+// const arr1 = [1,2,4,5]
+// const arr2 = [3,3,4]
+// const arr3 = [2,3,4,5]
+//
+//
+// const findNum = (arr1,arr2,arr3)=>{
+//     const sumArr = [...arr1,...arr2,...arr3].sort()
+//     let number =-1
+//     for(let i =0;i<sumArr.length;i++){
+//         if(sumArr[i]===sumArr[i+1]&&sumArr[i+2]===sumArr[i]){
+//             number=sumArr[i]
+//         }
+//     }
+//     return number
+//
+// }
+// const findNum1 = (arr1,arr2,arr3)=>{
+//     const commonNumbers = arr1.filter(num => arr2.includes(num) && arr3.includes(num));
+//     return commonNumbers.length > 0 ? commonNumbers[0]:-1
+//
+// }
+// console.log(findNum1(arr1,arr2,arr3))
+
+function quicksort(arr) {
+    if (arr.length <= 1) {
+        return arr;
+    }
+
+    const pivot = arr[Math.floor(Math.random() * arr.length)];
+    const left = [];
+    const right = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] < pivot) {
+            left.push(arr[i]);
+        } else if (arr[i] > pivot) {
+            right.push(arr[i]);
         }
     }
 
-    then(onFulfilled, onRejected) {
-        if (this.state === 'fulfilled') {
-            return new MyPromise((resolve, reject) => {
-                try {
-                    const result = onFulfilled(this.value);
-                    if (result instanceof MyPromise) {
-                        result.then(resolve, reject);
-                    } else {
-                        resolve(result);
-                    }
-                } catch (error) {
-                    reject(error);
-                }
-            });
-        } else if (this.state === 'rejected') {
-            return new MyPromise((resolve, reject) => {
-                try {
-                    const result = onRejected(this.reason);
-                    if (result instanceof MyPromise) {
-                        result.then(resolve, reject);
-                    } else {
-                        resolve(result);
-                    }
-                } catch (error) {
-                    reject(error);
-                }
-            });
-        }
-    }
-
-    catch(onRejected) {
-        return this.then(null, onRejected);
-    }
-
-    static resolve(value) {
-        return new MyPromise(resolve => resolve(value));
-    }
-
-    static reject(reason) {
-        return new MyPromise((resolve, reject) => reject(reason));
-    }
-
-    static all(promises) {
-        return new MyPromise((resolve, reject) => {
-            const results = [];
-            let count = promises.length;
-
-            if (count === 0) {
-                resolve(results);
-                return;
-            }
-
-            function onResolve(i, value) {
-                results[i] = value;
-                count--;
-
-                if (count === 0) {
-                    resolve(results);
-                }
-            }
-
-            promises.forEach((promise, i) => {
-                promise.then(value => onResolve(i, value))
-                    .catch(error => reject(error));
-            });
-        });
-    }
-
-    static race(promises) {
-        return new MyPromise((resolve, reject) => {
-            promises.forEach(promise => {
-                promise.then(resolve)
-                    .catch(reject);
-            });
-        });
-    }
+    return [...quicksort(left), pivot, ...quicksort(right)];
 }
 
+// Пример использования
+// const arr = [7, 2, 1, 6, 8, 5, 3, 4];
+// const sortedArr = quicksort(arr);
+// console.log(sortedArr);
+//
+// function findSubstringPositions(str, substr) {
+//     const positions = [];
+//     let index = 0;
+//
+//     while ((index = str.indexOf(substr, index)) !== -1) {
+//         positions.push(index);
+//         index++;
+//     }
+//
+//     return positions;
+// }
 
-const data = [
-    { id: 1, age: 20, name: "Иван", country: "Russia", registred: true },
-    { id: 2, age: 30, name: "Дима", country: "Usa", registred: true },
-    { id: 3, age: 25, name: "Федор", country: "Russia", registred: true },
-    { id: 4, age: 20, name: "Коля", country: "Usa", registred: false },
-    { id: 5, age: 30, name: "Денис", country: "Russia", registred: true },
-    { id: 6, age: 50, name: "Жека", country: "Usa", registred: true },
-    { id: 7, age: 20, name: "Гена", country: "Russia", registred: false }
-];
+// Пример использования
+// const str = 'hello world, world is great';
+// const substr = 'world';
+// const positions = findSubstringPositions(str, substr);
+// console.log(positions); // [6, 13]
+//
+// function dijkstra(graph, start, end) {
+//     const distances = {};
+//     const visited = {};
+//     const previous = {};
+//     const path = [];
+//
+//     // Инициализируем расстояния
+//     for (let vertex in graph) {
+//         distances[vertex] = Infinity;
+//     }
+//     distances[start] = 0;
+//
+//     while (Object.keys(visited).length < Object.keys(graph).length) {
+//         // Находим вершину с наименьшим расстоянием
+//         let currentVertex = null;
+//         let shortestDistance = Infinity;
+//         for (let vertex in distances) {
+//             if (!visited[vertex] && distances[vertex] < shortestDistance) {
+//                 currentVertex = vertex;
+//                 shortestDistance = distances[vertex];
+//             }
+//         }
+//
+//         // Обновляем расстояния до соседних вершин
+//         for (let neighbor in graph[currentVertex]) {
+//             let distance = graph[currentVertex][neighbor];
+//             let newDistance = distances[currentVertex] + distance;
+//             if (newDistance < distances[neighbor]) {
+//                 distances[neighbor] = newDistance;
+//                 previous[neighbor] = currentVertex;
+//             }
+//         }
+//
+//         visited[currentVertex] = true;
+//         if (currentVertex === end) {
+//             // Построение пути
+//             while (previous[currentVertex]) {
+//                 path.push(currentVertex);
+//                 currentVertex = previous[currentVertex];
+//             }
+//             path.push(start);
+//             break;
+//         }
+//     }
+//
+//     return { distance: distances[end], path: path.reverse() };
+// }
+//
+// // Пример использования
+// const graph = {
+//     A: { B: 4, C: 2 },
+//     B: { A: 4, C: 1, D: 5 },
+//     C: { A: 2, B: 1, D: 8 },
+//     D: { B: 5, C: 8 },
+// };
+// const start = 'A';
+// const end = 'D';
+// const result = dijkstra(graph, start, end);
+// console.log(result.distance); // 7
+// console.log(result.path); // ["A", "C", "B", "D"]
+//
+// function longestCommonSubstring(str1, str2) {
+//     const dp = Array(str1.length + 1)
+//         .fill()
+//         .map(() => Array(str2.length + 1).fill(0));
+//     let maxLength = 0;
+//
+//     for (let i = 1; i <= str1.length; i++) {
+//         for (let j = 1; j <= str2.length; j++) {
+//             if (str1[i - 1] === str2[j - 1]) {
+//                 dp[i][j] = dp[i - 1][j - 1] + 1;
+//                 maxLength = Math.max(maxLength, dp[i][j]);
+//             }
+//         }
+//     }
+//
+//     return maxLength;
+// }
+//
+// // Пример использования
+// const str1 = 'abcdefg';
+// const str2 = 'defghi';
+// const length = longestCommonSubstring(str1, str2);
+// console.log(length); // 3
+//
+// function findPairWithSum(arr, sum) {
+//     const hashMap = {};
+//
+//     for (let i = 0; i < arr.length; i++) {
+//         const current = arr[i];
+//         const difference = sum - current;
+//
+//         if (hashMap[difference] !== undefined) {
+//             return [current, difference];
+//         }
+//
+//         hashMap[current] = i;
+//     }
+//
+//     return null;
+// }
+//
+// // Пример использования
+// const arr = [1, 2, 3, 4, 5, 6];
+// const sum = 8;
+// const pair = findPairWithSum(arr, sum);
+// console.log(pair); // [2, 6]
+//
+// function findMinPath(matrix) {
+//     const rows = matrix.length;
+//     const cols = matrix[0].length;
+//     const dp = Array(rows)
+//         .fill()
+//         .map(() => Array(cols).fill(0));
+//
+//     // Инициализируем первую строку и первый столбец
+//     dp[0][0] = matrix[0][0];
+//     for (let i = 1; i < rows; i++) {
+//         dp[i][0] = dp[i - 1][0] + matrix[i][0];
+//     }
+//     for (let j = 1; j < cols; j++) {
+//         dp[0][j] = dp[0][j - 1] + matrix[0][j];
+//     }
+//
+//     // Заполняем оставшуюся часть таблицы
+//     for (let i = 1; i < rows; i++) {
+//         for (let j = 1; j < cols; j++) {
+//             dp[i][j] = matrix[i][j] + Math.min(dp[i - 1][j], dp[i][j - 1]);
+//         }
+//     }
+//
+//     // Восстанавливаем путь
+//     const path = [];
+//     let i = rows - 1;
+//     let j = cols - 1;
+//     while (i > 0 || j > 0) {
+//         path.unshift([i, j]);
+//         if (i === 0) {
+//             j--;
+//         } else if (j === 0) {
+//             i--;
+//         } else {
+//             if (dp[i - 1][j] < dp[i][j - 1]) {
+//                 i--;
+//             } else {
+//                 j--;
+//             }
+//         }
+//     }
+//     path.unshift([0, 0]);
+//
+//     return { distance: dp[rows - 1][cols - 1], path };
+// }
+//
+// // Пример использования
+// const matrix = [
+//     [1, 2, 3],
+//     [4, 5, 6],
+//     [7, 8, 9],
+// ];
+// const result = findMinPath(matrix);
+// console.log(result.distance); // 21
+// console.log(result.path); // [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2]]
+//
+// function permute(str) {
+//     const result = [];
+//
+//     function backtrack(current, remaining) {
+//         if (remaining.length === 0) {
+//             result.push(current);
+//             return;
+//         }
+//
+//         for (let i = 0; i < remaining.length; i++) {
+//             const next = current + remaining[i];
+//             const rest = remaining.slice(0, i) + remaining.slice(i + 1);
+//             backtrack(next, rest);
+//         }
+//     }
+//
+//     backtrack('', str);
+//
+//     return result;
+// }
+//
+// // Пример использования
+// const str = 'abc';
+// const permutations = permute(str);
+// console.log(permutations); // ["abc", "acb", "bac", "bca", "cab", "cba"]
+//
+// class TreeNode {
+//     constructor(val) {
+//         this.val = val;
+//         this.left = null;
+//         this.right = null;
+//     }
+// }
+//
+// function findLCA(root, p, q) {
+//     if (root === null) {
+//         return null;
+//     }
+//
+//     if (root.val === p.val || root.val === q.val) {
+//         return root;
+//     }
+//
+//     const left = findLCA(root.left, p, q);
+//     const right = findLCA(root.right, p, q);
+//
+//     if (left !== null && right !== null) {
+//         return root;
+//     }
+//
+//     return left !== null ? left : right;
+// }
+//
+// // Пример использования
+// const root = new TreeNode(1);
+// root.left = new TreeNode(2);
+// root.right = new TreeNode(3);
+// root.left.left = new TreeNode(4);
+// root.left.right = new TreeNode(5);
+// root.right.left = new TreeNode(6);
+// root.right.right = new TreeNode(7);
+//
+// const p = root.left.left;
+// const q = root.left.right;
+// const lca = findLCA(root, p, q);
+// console.log(lca.val); // 2
 
-const result = data.reduce((acc, item) => {
-    const { id, country, ...rest } = item;
-    if (!acc[country]) {
-        acc[country] = {};
-    }
-    acc[country][id] = rest;
-    return acc;
-}, {});
+
+// async function promiseHash(object) {
+//     // Hint: Object.entries(object)
+//     const myArr = Object.entries(object)
+//     const result = {};
+//
+//     // for (const [key, value] of Object.entries(object));
+//
+//     for(let i=0;i<myArr.lenght;i++){
+//         const currentKey = myArr[i][0]
+//         const currentFiled = myArr[i][1]
+//         result[currentKey] = await currentFiled
+//     }
+//
+//     return result
+//
+//
+// }
+//
+// test.skip("works like Promise.all, but for objects", async () => {
+//     const result = await promiseHash({
+//         name: Promise.resolve("John Lennon"),
+//         age: Promise.resolve(42),
+//         spouse: {
+//           name: Promise.resolve("Yoko Ono")
+//         }
+//     });
+//
+//     expect(result).toEqual({
+//         name: "John Lennon",
+//         age: 42,
+//         spouse: {
+//           name: "Yoko Ono"
+//         }
+//     });
+// });
+
+// function promiseHash(hash) {
+//     const keys = Object.keys(hash);
+//     const promises = [];
+//     const results = {};
+//
+//     for (let i = 0; i < keys.length; i++) {
+//         const key = keys[i];
+//         const value = hash[key];
+//
+//         if (typeof value === 'object') { // если значение - объект, рекурсивно вызываем функцию
+//             promises.push(promiseHash(value).then((subResults) => {
+//                 results[key] = subResults;
+//             }));
+//         } else { // иначе обрабатываем значение как обычный промис
+//             const promise = Promise.resolve(value);
+//             promises.push(promise);
+//
+//             promise.then((val) => {
+//                 results[key] = val;
+//             });
+//         }
+//     }
+//
+//     return Promise.all(promises).then(() => {
+//         return results;
+//     });
+// }
+// const res =  promiseHash({
+//     name: Promise.resolve("John Lennon"),
+//     age: Promise.resolve(42),
+//     spouse: {
+//         name: Promise.resolve("Yoko Ono")
+//     }
+// })
+// console.log(res)
