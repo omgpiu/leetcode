@@ -2085,42 +2085,135 @@ function quicksort(arr) {
 // }
 //
 // console.log(minOperations(["d1/","d2/","../","d21/","./"]))
-const tokens = ["2", "1", "+", "3", "*"]
+// const tokens = ["2", "1", "+", "3", "*"]
+//
+// const evaluate = ({first, second, operation}) => {
+//     switch (operation) {
+//         case '+': {
+//             return second + first
+//         }
+//         case '-': {
+//             return first - second
+//         }
+//         case '/': {
+//             return Math.trunc(first / second)
+//         }
+//         default: {
+//             return second * first
+//         }
+//     }
+// }
+//
+// const evalRPN = (tokens) => {
+//
+//     const stack = []
+//
+//     for (const token of tokens) {
+//         if (['*', '/', '+', '-'].includes(token)) {
+//             const second = stack.pop()
+//             const first = stack.pop()
+//             stack.push(evaluate({first, second, operation: token}))
+//         } else {
+//             stack.push(Number(token))
+//         }
+//
+//     }
+//
+//     return stack
+// };
+//
+//
+// console.log(evalRPN(tokens))
+//
+// const s = "leEeetcode"
+// const delta = 32
+// const isGood = (first, second) => {
+//
+//
+//     return Math.abs(first.charAt(0) - second.charAt(0)) !== delta
+//
+// }
+// const makeStringAgain = (str) => {
+//     const stack = []
+//
+//     for (const ch of str) {
+//         stack.push(ch)
+//
+//         if (stack.length > 1) {
+//             const first = stack.at(-1)
+//             const second = stack.at(-2)
+//             if (isGood(first, second)) {
+//                 stack.pop()
+//                 stack.pop()
+//             }
+//
+//         }
+//
+//     }
+//
+//     return stack.join('')
+//
+// }
+//
+// console.log(makeStringAgain('abBAcC'))
 
-const evaluate = ({first, second, operation}) => {
-    switch (operation) {
-        case '+': {
-            return second + first
-        }
-        case '-': {
-            return first - second
-        }
-        case '/': {
-            return Math.trunc(first / second)
-        }
-        default: {
-            return second * first
-        }
-    }
-}
 
-const evalRPN = (tokens) => {
-
-    const stack = []
-
-    for (const token of tokens) {
-        if (['*', '/', '+', '-'].includes(token)) {
-            const second = stack.pop()
-            const first = stack.pop()
-            stack.push(evaluate({first, second, operation: token}))
-        } else {
-            stack.push(Number(token))
-        }
-
-    }
-
-    return stack
-};
+const s = "cbaebabacd", p = "abc"
+// Output: [0,6]
 
 
-console.log(evalRPN(tokens))
+// const findAllAnagram = (str, secondStr) => {
+//     const sorted = secondStr.split('').sort().join('')
+//     const result = []
+//
+//     for (let i = 0; i < str.length; i++) {
+//         if (str.slice(i, i + secondStr.length).split('').sort().join('') === sorted) {
+//             result.push(i)
+//         }
+//
+//     }
+//     return result
+// }
+//
+//
+// console.log(findAllAnagram(s,p))
+
+// function findAnagrams(s, p) {
+//     const result = [];
+//     const freqCounter = {};
+//
+//     // Инициализация счетчика частоты для строки p
+//     for (let char of p) {
+//         freqCounter[char] = (freqCounter[char] || 0) + 1;
+//     }
+//     console.log(freqCounter)
+//     let leftIdx = 0, rightIdx = 0, count = p.length;
+//
+//     while (rightIdx < s.length) {
+//         let rightValue = s[rightIdx]
+//         let leftValue = s[leftIdx]
+//
+//         if (freqCounter[rightValue] > 0) {
+//             count--;
+//         }
+//         freqCounter[rightValue] = (freqCounter[rightValue] || 0) - 1;
+//         rightIdx++;
+//
+//         if (count === 0) {
+//             result.push(leftIdx);
+//         }
+//
+//         if (rightIdx - leftIdx === p.length) {
+//             if (freqCounter[leftValue] >= 0) {
+//                 count++;
+//             }
+//             freqCounter[leftValue]++;
+//             leftIdx++;
+//         }
+//     }
+//
+//     return result;
+// }
+//
+// const anagramIndices = findAnagrams(s, p);
+// console.log(anagramIndices); // Вывод: [0, 6]
