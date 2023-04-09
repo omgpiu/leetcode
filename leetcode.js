@@ -2066,9 +2066,8 @@ function quicksort(arr) {
 // Output: 2
 const minOperations = (inputArray) => {
     const stack = [];
-    for (let i = 0; i < inputArray.length; i++) {
-        let current = inputArray[i];
-        switch (current) {
+    for (const folder of inputArray) {
+        switch (folder) {
             case "../":
                 if (stack.length) {
                     stack.pop();
@@ -2077,7 +2076,7 @@ const minOperations = (inputArray) => {
             case "./":
                 break;
             default:
-                stack.push(current);
+                stack.push(folder);
                 break;
         }
     }
