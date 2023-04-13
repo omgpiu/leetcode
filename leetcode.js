@@ -1697,25 +1697,26 @@ function flatten(arr) {
 // }
 // console.log(findNum1(arr1,arr2,arr3))
 
-function quicksort(arr) {
-    if (arr.length <= 1) {
-        return arr;
-    }
-
-    const pivot = arr[Math.floor(Math.random() * arr.length)];
-    const left = [];
-    const right = [];
-
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] < pivot) {
-            left.push(arr[i]);
-        } else if (arr[i] > pivot) {
-            right.push(arr[i]);
-        }
-    }
-
-    return [...quicksort(left), pivot, ...quicksort(right)];
-}
+// function quicksort(arr) {
+//     if (arr.length <= 1) {
+//         return arr;
+//     }
+//
+//     const pivot = arr[Math.floor(Math.random() * arr.length)];
+//     const left = [];
+//     const right = [];
+//
+//     for (const elem of arr) {
+//         if (elem < pivot) {
+//             left.push(elem)
+//         } else if (elem > pivot) {
+//             right.push(elem)
+//         }
+//     }
+//
+//
+//     return [...quicksort(left), pivot, ...quicksort(right)];
+// }
 
 // Пример использования
 // const arr = [7, 2, 1, 6, 8, 5, 3, 4];
@@ -2217,3 +2218,137 @@ const s = "cbaebabacd", p = "abc"
 //
 // const anagramIndices = findAnagrams(s, p);
 // console.log(anagramIndices); // Вывод: [0, 6]
+
+// const num = "1432219", k = 3
+//
+// function removeKdigits(num, k) {
+//     const stack = [];
+//
+//     for (let digit of num) {
+//         while (k > 0 && stack.length && digit < stack.at(-1)) {
+//             stack.pop();
+//             k--;
+//         }
+//         stack.push(digit);
+//     }
+//
+//     while (k--) {
+//         stack.pop();
+//     }
+//
+//     let result = stack.join('').replace(/^0+/, '');
+//     return result || '0';
+// }
+// removeKdigits(num,k)
+
+// function landPerimeter(arr) {
+//     let perimeter = 0;
+//
+//     for (let i = 0; i < arr.length; i++) {
+//         for (let j = 0; j < arr[i].length; j++) {
+//             if (arr[i][j] === 'X') {
+//                 perimeter += 4;
+//
+//                 if (i > 0 && arr[i - 1][j] === 'X') {
+//                     perimeter -= 2;
+//                 }
+//                 if (j > 0 && arr[i][j - 1] === 'X') {
+//                     perimeter -= 2;
+//                 }
+//             }
+//         }
+//     }
+//
+//     return `Total land perimeter: ${perimeter}`;
+//
+// }
+
+// function findMaxSum(n) {
+//     for (let i = n, j, k; i > 1; i--) {
+//         j = n - (n + i) % 2;
+//         k = n - (n + i + j) % 5;
+//         if ((j + k) % 3 == 0) return i + j + k;
+//     }
+//     return 0;
+// }
+//
+// findMaxSum(10)
+
+//
+// const arr1 = [1, 2, 3, 45,]
+// const arr2 = [2, 3, 4, 5, 45, 66]
+//
+//
+// const mergeArrat = (arr1, arr2) => {
+//     const stack = []
+//     let idx1=0
+//     let idx2=0
+//
+//     while (arr1[idx1] !== undefined || arr2[idx2] !== undefined) {
+//         if (arr1[idx1] === arr2[idx2]) {
+//             stack.push(arr1[idx1])
+//             idx1++
+//             idx2++
+//         } else if (arr1[idx1] < arr2[idx2]) {
+//             stack.push(arr1[idx1])
+//             idx1++
+//         } else {
+//             stack.push(arr2[idx2])
+//             idx2++
+//         }
+//
+//
+//     }
+//
+//     return stack
+// }
+//
+// console.log(mergeArrat(arr1,arr2))
+
+
+// Input: nums = [5,7,7,8,8,10], target = 8
+// Output: [3,4]
+
+const getLeftIdx = (input, target) => {
+    let left = -1
+    let right = input.length
+
+    while (right - left > 1) {
+        let middle = Math.floor((left + right) / 2)
+        if (target <= input[middle]) {
+            right = middle
+        } else {
+            left = middle
+        }
+    }
+    return input[right] === target ? right : -1
+}
+
+const getRightIdx = (input, target) => {
+    let left = -1
+    let right = input.length
+
+    while (right - left > 1) {
+        let middle = Math.floor((left + right) / 2)
+        if (target >= input[middle]) {
+            left = middle
+        } else {
+            right = middle
+        }
+    }
+
+
+    return input[left] === target ? left : -1
+}
+
+const searchRange = (input, target) => {
+    return [getLeftIdx(input, target), getRightIdx(input, target)]
+}
+function findCurrentRange(nums, target) {
+    let arr = [];
+    for(let i = nums.indexOf(target); i <= nums.lastIndexOf(target); i++) {
+        arr.push(i)
+    }
+    return arr;
+}
+console.log(searchRange([5,7,7,8,8,10],8))
