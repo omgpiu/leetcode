@@ -2308,47 +2308,100 @@ const s = "cbaebabacd", p = "abc"
 
 // Input: nums = [5,7,7,8,8,10], target = 8
 // Output: [3,4]
+//
+// const getLeftIdx = (input, target) => {
+//     let left = -1
+//     let right = input.length
+//
+//     while (right - left > 1) {
+//         let middle = Math.floor((left + right) / 2)
+//         if (target <= input[middle]) {
+//             right = middle
+//         } else {
+//             left = middle
+//         }
+//     }
+//     return input[right] === target ? right : -1
+// }
+//
+// const getRightIdx = (input, target) => {
+//     let left = -1
+//     let right = input.length
+//
+//     while (right - left > 1) {
+//         let middle = Math.floor((left + right) / 2)
+//         if (target >= input[middle]) {
+//             left = middle
+//         } else {
+//             right = middle
+//         }
+//     }
+//
+//
+//     return input[left] === target ? left : -1
+// }
+//
+// const searchRange = (input, target) => {
+//     return [getLeftIdx(input, target), getRightIdx(input, target)]
+// }
+// function findCurrentRange(nums, target) {
+//     let arr = [];
+//     for(let i = nums.indexOf(target); i <= nums.lastIndexOf(target); i++) {
+//         arr.push(i)
+//     }
+//     return arr;
+// }
+// console.log(searchRange([5,7,7,8,8,10],8))
 
-const getLeftIdx = (input, target) => {
-    let left = -1
-    let right = input.length
 
-    while (right - left > 1) {
-        let middle = Math.floor((left + right) / 2)
-        if (target <= input[middle]) {
-            right = middle
-        } else {
-            left = middle
+// nums = [2,7,11,15], target = 9
+
+// const binarySearch = (nums, target, from) => {
+//     let left = from
+//     let right = nums.length
+//
+//     while (right - left > 1) {
+//         let middle = Math.floor((right + left) / 2)
+//
+//         if (nums[middle] === target) return middle
+//
+//         if (nums[middle] < target) {
+//             left = middle
+//         } else {
+//             right = middle
+//         }
+//     }
+//     return -1
+// }
+// const twoSum = (nums, target) => {
+//     for (let i = 0; i < nums.length; i++) {
+//         const foundIdx = binarySearch(nums, target - nums[i], i)
+//         if (foundIdx > -1) {
+//             return [i, foundIdx]
+//         }
+//     }
+//
+//     return [-1, -1]
+// }
+
+const twoSum = (nums, target) => {
+    const hashTable = {}
+
+    for (let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i]
+        console.log(hashTable,complement)
+        if (complement in hashTable) {
+            return [hashTable[complement], i]
         }
-    }
-    return input[right] === target ? right : -1
-}
-
-const getRightIdx = (input, target) => {
-    let left = -1
-    let right = input.length
-
-    while (right - left > 1) {
-        let middle = Math.floor((left + right) / 2)
-        if (target >= input[middle]) {
-            left = middle
-        } else {
-            right = middle
-        }
+        hashTable[nums[i]] = i
     }
 
+    return [-1, -1]
+}
+console.log(twoSum([0,1,3,8,12,4],16))
 
-    return input[left] === target ? left : -1
-}
 
-const searchRange = (input, target) => {
-    return [getLeftIdx(input, target), getRightIdx(input, target)]
-}
-function findCurrentRange(nums, target) {
-    let arr = [];
-    for(let i = nums.indexOf(target); i <= nums.lastIndexOf(target); i++) {
-        arr.push(i)
-    }
-    return arr;
-}
-console.log(searchRange([5,7,7,8,8,10],8))
+var majorityElement = function(nums) {
+    nums.sort()
+    return nums[Math.floor(nums.length/2)]
+};
