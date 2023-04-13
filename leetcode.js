@@ -2383,25 +2383,36 @@ const s = "cbaebabacd", p = "abc"
 //
 //     return [-1, -1]
 // }
+//
+// const twoSum = (nums, target) => {
+//     const hashTable = {}
+//
+//     for (let i = 0; i < nums.length; i++) {
+//         const complement = target - nums[i]
+//         console.log(hashTable, complement)
+//         if (complement in hashTable) {
+//             return [hashTable[complement], i]
+//         }
+//         hashTable[nums[i]] = i
+//     }
+//
+//     return [-1, -1]
+// }
+// console.log(twoSum([0, 1, 3, 8, 12, 4], 16))
 
-const twoSum = (nums, target) => {
-    const hashTable = {}
 
-    for (let i = 0; i < nums.length; i++) {
-        const complement = target - nums[i]
-        console.log(hashTable,complement)
-        if (complement in hashTable) {
-            return [hashTable[complement], i]
+// var majorityElement = function(nums) {
+//     nums.sort()
+//     return nums[Math.floor(nums.length/2)]
+// };
+
+var majorityElement = function (nums) {
+    const hash = {}
+    for (const elem of nums) {
+        hash[elem] = hash[elem] ? hash[elem] + 1 : 1
+        if(hash[elem] > Math.floor((nums.length / 2))){
+            return elem
         }
-        hashTable[nums[i]] = i
     }
-
-    return [-1, -1]
-}
-console.log(twoSum([0,1,3,8,12,4],16))
-
-
-var majorityElement = function(nums) {
-    nums.sort()
-    return nums[Math.floor(nums.length/2)]
 };
+console.log(majorityElement([3,2,3]))
