@@ -2406,13 +2406,81 @@ const s = "cbaebabacd", p = "abc"
 //     return nums[Math.floor(nums.length/2)]
 // };
 
-var majorityElement = function (nums) {
-    const hash = {}
-    for (const elem of nums) {
-        hash[elem] = hash[elem] ? hash[elem] + 1 : 1
-        if(hash[elem] > Math.floor((nums.length / 2))){
-            return elem
-        }
-    }
-};
-console.log(majorityElement([3,2,3]))
+// var majorityElement = function (nums) {
+//     const hash = {}
+//     for (const elem of nums) {
+//         hash[elem] = hash[elem] ? hash[elem] + 1 : 1
+//         if(hash[elem] > Math.floor((nums.length / 2))){
+//             return elem
+//         }
+//     }
+// };
+// console.log(majorityElement([3,2,3]))
+
+// var majorityElement = function (nums) {
+//     return findMajorityInterval(nums, 0, nums.length - 1)
+// };
+// const count = (nums, leftTarget, from, to) => {
+//     let leftCount = 0
+//     let rightCount = 0
+//
+//     for (let i = from; i <= to; i++) {
+//         if (nums[i] === leftTarget) {
+//             leftCount++
+//         } else {
+//             rightCount++
+//         }
+//     }
+//
+//
+//     return [leftCount, rightCount]
+// }
+// const findMajorityInterval = (nums, from, to) => {
+//     if (from === to) {
+//         return nums[to]
+//     }
+//     const middle = Math.floor((from + to) / 2)
+//
+//     const leftInterval = findMajorityInterval(nums, from, middle)
+//     const rightInterval = findMajorityInterval(nums, middle + 1, to)
+//
+//     if (leftInterval === rightInterval) {
+//         return leftInterval
+//     }
+//
+//     const [leftCount, rightCount] = count(nums, leftInterval,from, to)
+//     return leftCount > rightCount ? leftInterval : rightInterval
+// }
+//
+// console.log(majorityElement([3, 2, 3]))
+// var longestPalindromeSubseq = function (s) {
+//     const n = s.length;
+//     // reverse the input string
+//     const rev = s.split('').reverse().join('');
+//     // build LCS matrix
+//     const dp = Array(n + 1).fill(0);
+//     let prev;
+//     for (let i = 1; i <= n; i++) {
+//         prev = 0;
+//         for (let j = 1; j <= n; j++) {
+//             let temp = dp[j];
+//             if (s[i - 1] === rev[j - 1])
+//                 dp[j] = prev + 1;
+//             else
+//                 dp[j] = Math.max(dp[j - 1], dp[j]);
+//             prev = temp;
+//         }
+//     }
+//     return dp[n];
+// };
+//
+// console.log(longestPalindromeSubseq("bbbab"))
+
+
+// Array.prototype.last = function () {
+//     if (this.length === 0) return -1
+//     return this[this.length - 1]
+// };
+//
+// const govno = []
+// console.log(govno.last())
