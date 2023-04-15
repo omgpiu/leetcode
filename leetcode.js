@@ -2484,15 +2484,73 @@ const s = "cbaebabacd", p = "abc"
 //
 // const govno = []
 // console.log(govno.last())
-var createCounter = function (n) {
-    let count = n-1
-    return function () {
-        count += 1
-        return count
-    };
+// var createCounter = function (n) {
+//     let count = n-1
+//     return function () {
+//         count += 1
+//         return count
+//     };
+// };
+//
+// const counter = createCounter(10)
+// console.log(counter())
+// console.log(counter())
+// console.log(counter())
+
+
+async function sleep(millis) {
+
+    return new Promise((res) => {
+        setTimeout(res, millis)
+    })
+
+}
+
+var compose = function (functions) {
+    return function (x) {
+        return functions.reduceRight((acc, fn) => {
+            return fn(acc)
+        }, x)
+    }
 };
 
-const counter = createCounter(10)
-console.log(counter())
-console.log(counter())
-console.log(counter())
+
+var filter = function (arr, fn) {
+    const result = []
+    for (let i = 0; i < arr.length; i++) {
+        if (fn(arr[i], i)) {
+            result.push(arr[i])
+        }
+    }
+    return result
+};
+
+
+console.log(filter([1, 2, 3], function firstIndex(n, i) {
+    return i === 0;
+}))
+
+
+
+// var timeLimit = function(fn, t) {
+//     return async function(...args) {
+//         const resultPromise = Promise.resolve(fn(...args));
+//
+//         const timeoutPromise = new Promise((resolve, reject) => {
+//             setTimeout(() => {
+//                 reject(`Function exceeded time limit of ${t} milliseconds`);
+//             }, t);
+//         });
+//         return Promise.race([resultPromise, timeoutPromise]);
+//     };
+// };
+// function sum(accum, curr) { return accum + curr; }
+// var reduce = function(nums, fn, init) {
+//     for(let i=0;i<nums.length;i++){
+//         init = fn(init,nums[i])
+//     }
+//     return init
+//
+// };
+//
+// console.log(reduce([1,2,3,4],sum,0))
