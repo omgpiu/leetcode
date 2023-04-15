@@ -2607,4 +2607,19 @@ function memoize(fn) {
 const sum = (a, b) => a + b;
 const memoizedSum = memoize(sum);
 memoizedSum(2, 2); // Returns 4. sum() was called as (2, 2) was not seen before.
-console.log(memoizedSum(2, 2))
+
+
+var flat = function (arr, n ) {
+    if (n === 0) {
+        return arr.slice();
+    }
+    const flattened = [];
+    for (const elem of arr) {
+        if (Array.isArray(elem)) {
+            flattened.push(...flat(elem, n - 1));
+        } else {
+            flattened.push(elem);
+        }
+    }
+    return flattened;
+};
