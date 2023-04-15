@@ -1356,18 +1356,7 @@ function curry(fn) {
 // }
 //
 //
-function flatten(arr) {
-    let flatArr = [];
-    while (arr.length) {
-        const current = arr.shift();
-        if (Array.isArray(current)) {
-            arr.unshift(...current);
-        } else {
-            flatArr.push(current);
-        }
-    }
-    return flatArr;
-}
+
 
 
 // class MyPromise {
@@ -2159,7 +2148,7 @@ function flatten(arr) {
 // console.log(makeStringAgain('abBAcC'))
 
 
-const s = "cbaebabacd", p = "abc"
+// const s = "cbaebabacd", p = "abc"
 // Output: [0,6]
 
 
@@ -2608,7 +2597,18 @@ const sum = (a, b) => a + b;
 const memoizedSum = memoize(sum);
 memoizedSum(2, 2); // Returns 4. sum() was called as (2, 2) was not seen before.
 
-
+function flatten(arr) {
+    let flatArr = [];
+    while (arr.length) {
+        const current = arr.shift();
+        if (Array.isArray(current)) {
+            arr.unshift(...current);
+        } else {
+            flatArr.push(current);
+        }
+    }
+    return flatArr;
+}
 var flat = function (arr, n ) {
     if (n === 0) {
         return arr.slice();
