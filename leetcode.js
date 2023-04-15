@@ -2531,7 +2531,6 @@ const s = "cbaebabacd", p = "abc"
 // }))
 
 
-
 // var timeLimit = function(fn, t) {
 //     return async function(...args) {
 //         const resultPromise = Promise.resolve(fn(...args));
@@ -2554,3 +2553,58 @@ const s = "cbaebabacd", p = "abc"
 // };
 //
 // console.log(reduce([1,2,3,4],sum,0))
+// Array.isArray(classFunction) || classFunction === null || classFunction === undefined ||
+
+// var checkIfInstanceOf = function (obj, classFunction) {
+//     if(obj === null || obj === undefined || typeof classFunction !== 'function')
+//         return false;
+//     return Object(obj) instanceof classFunction;
+// };
+//
+//
+// console.log(checkIfInstanceOf(null, null))
+
+const TimeLimitedCache = function () {
+    this.cache = new Map();  // Using Map so we don't need a size variable
+};
+
+TimeLimitedCache.prototype.set = function (key, value, duration) {
+    let found = this.cache.has(key);
+    if (found) clearTimeout(this.cache.get(key).ref);  // Cancel previous timeout
+    this.cache.set(key, {
+        value,  // Equivalent to `value: value`
+        ref: setTimeout(() => this.cache.delete(key), duration)
+    });
+    return found;
+};
+
+TimeLimitedCache.prototype.get = function (key) {
+    return this.cache.has(key) ? this.cache.get(key).value : -1;
+};
+
+TimeLimitedCache.prototype.count = function () {
+    return this.cache.size;
+};
+
+
+function memoize(fn) {
+    const cache = {}
+
+    return function (...args) {
+        const key = JSON.stringify(args) + JSON.stringify(fn.name)
+        if (key in cache) {
+            return cache[key]
+        }
+        const result = fn.apply(this, args)
+        cache[key] = result
+        return result
+
+
+    }
+
+}
+
+const sum = (a, b) => a + b;
+const memoizedSum = memoize(sum);
+memoizedSum(2, 2); // Returns 4. sum() was called as (2, 2) was not seen before.
+console.log(memoizedSum(2, 2))
