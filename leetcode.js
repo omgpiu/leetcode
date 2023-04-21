@@ -1358,7 +1358,6 @@ function curry(fn) {
 //
 
 
-
 // class MyPromise {
 //     constructor(executor) {
 //         this.state = 'pending';
@@ -2595,7 +2594,7 @@ function memoize(fn) {
 
 const sum = (a, b) => a + b;
 const memoizedSum = memoize(sum);
-memoizedSum(2, 2); // Returns 4. sum() was called as (2, 2) was not seen before.
+memoizedSum(2, 2);
 
 function flatten(arr) {
     let flatArr = [];
@@ -2609,7 +2608,8 @@ function flatten(arr) {
     }
     return flatArr;
 }
-var flat = function (arr, n ) {
+
+var flat = function (arr, n) {
     if (n === 0) {
         return arr.slice();
     }
@@ -2623,3 +2623,57 @@ var flat = function (arr, n ) {
     }
     return flattened;
 };
+
+function sortOddNumbers(arr) {
+    const oddNumbers = arr.filter(num => num % 2 !== 0).sort((a, b) => a - b);
+    return arr.map(num => num % 2 !== 0 ? oddNumbers.shift() : num);
+}
+
+const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
+console.log(sortOddNumbers(numbers)); // [6, 1, 3, 5, 8, 7, 2, 4]
+
+
+const strBefore = 'abccc'
+const morzeMap = {
+    a: '_',
+    b: '.',
+    c: '.-'
+}
+
+const serToMorze = (str, morzeMap) => {
+    let result = ''
+
+    for (const elem of str) {
+        result=+morzeMap[elem]
+    }
+
+    return result.join('')
+}
+
+
+
+function groupAnagrams(words) {
+    let result = {};
+
+    // пройдемся по каждому слову
+    for (let word of words) {
+        // отсортируем буквы в слове по алфавиту и преобразуем в строку
+        let sortedWord = word.split('').sort().join('');
+
+        // если этот набор букв уже есть в объекте result, то добавим слово в соответствующий массив
+        if (sortedWord in result) {
+            result[sortedWord].push(word);
+        } else {
+            // иначе создадим новый ключ в объекте result
+            result[sortedWord] = [word];
+        }
+    }
+
+    // преобразуем объект result в массив массивов и вернем результат
+    return Object.values(result);
+}
+
+// пример использования
+let words = ['лунь', 'нуль', 'воз', 'зов', 'жопа'];
+let groupedWords = groupAnagrams(words);
+console.log(groupedWords);
