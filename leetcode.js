@@ -85,7 +85,7 @@
 // console.log(validMountainArray([14, 82, 89, 84, 79, 70, 70, 68, 67, 66, 63, 60, 58, 54, 44, 43, 32, 28, 26, 25, 22, 15, 13, 12, 10, 8, 7, 5, 4, 3]), "false");
 
 // const arr = [400]
-// const arr1 = [17, 18, 5, 4, 6, 1]
+const arr1 = [17, 18, 5, 4, 6, 1];
 // let replaceElements = function (arr) {
 //     if (arr.length === 1) {
 //         arr[0] = -1;
@@ -123,7 +123,7 @@
 //     let max = -1;
 //
 //     for (let i = arr.length -1; i >= 0; i--) {
-//         const temp = arr[i];
+//         let temp = arr[i];
 //
 //         arr[i] = max;
 //
@@ -1313,21 +1313,21 @@
 //     };
 // };
 
-function add(x) {
-    function next(y) {
-        return add(x + y);
-    }
-
-    next.valueOf = function () {
-        return x;
-    };
-
-    return next;
-}
-
-function curry(fn) {
-    return (...args) => args.length < fn.length ? curry(fn.bind(null, ...args)) : fn(...args);
-}
+// function add(x) {
+//   function next(y) {
+//     return add(x + y);
+//   }
+//
+//   next.valueOf = function() {
+//     return x;
+//   };
+//
+//   return next;
+// }
+//
+// function curry(fn) {
+//   return (...args) => args.length < fn.length ? curry(fn.bind(null, ...args)) : fn(...args);
+// }
 
 // function promiseAll(promises) {
 //     return new Promise((resolve, reject) => {
@@ -2552,128 +2552,207 @@ function curry(fn) {
 //
 // console.log(checkIfInstanceOf(null, null))
 
-const TimeLimitedCache = function () {
-    this.cache = new Map();  // Using Map so we don't need a size variable
-};
+// const TimeLimitedCache = function() {
+//   this.cache = new Map();  // Using Map so we don't need a size variable
+// };
+//
+// TimeLimitedCache.prototype.set = function(key, value, duration) {
+//   let found = this.cache.has(key);
+//   if (found) clearTimeout(this.cache.get(key).ref);  // Cancel previous timeout
+//   this.cache.set(key, {
+//     value,  // Equivalent to `value: value`
+//     ref: setTimeout(() => this.cache.delete(key), duration)
+//   });
+//   return found;
+// };
+//
+// TimeLimitedCache.prototype.get = function(key) {
+//   return this.cache.has(key) ? this.cache.get(key).value : -1;
+// };
+//
+// TimeLimitedCache.prototype.count = function() {
+//   return this.cache.size;
+// };
+//
+//
+// function memoize(fn) {
+//   const cache = {};
+//
+//   return function(...args) {
+//     const key = JSON.stringify(args) + JSON.stringify(fn.name);
+//     if (key in cache) {
+//       return cache[key];
+//     }
+//     const result = fn.apply(this, args);
+//     cache[key] = result;
+//     return result;
+//
+//
+//   };
+//
+// }
+//
+// const sum = (a, b) => a + b;
+// const memoizedSum = memoize(sum);
+// memoizedSum(2, 2);
+//
+// function flatten(arr) {
+//   let flatArr = [];
+//   while (arr.length) {
+//     const current = arr.shift();
+//     if (Array.isArray(current)) {
+//       arr.unshift(...current);
+//     } else {
+//       flatArr.push(current);
+//     }
+//   }
+//   return flatArr;
+// }
+//
+// var flat = function(arr, n) {
+//   if (n === 0) {
+//     return arr.slice();
+//   }
+//   const flattened = [];
+//   for (const elem of arr) {
+//     if (Array.isArray(elem)) {
+//       flattened.push(...flat(elem, n - 1));
+//     } else {
+//       flattened.push(elem);
+//     }
+//   }
+//   return flattened;
+// };
+//
+// function sortOddNumbers(arr) {
+//   const oddNumbers = arr.filter(num => num % 2 !== 0).sort((a, b) => a - b);
+//   return arr.map(num => num % 2 !== 0 ? oddNumbers.shift() : num);
+// }
+//
+// const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
+// console.log(sortOddNumbers(numbers)); // [6, 1, 3, 5, 8, 7, 2, 4]
+//
+//
+// const strBefore = "abccc";
+// const morzeMap = {
+//   a: "_", b: ".", c: ".-"
+// };
+//
+// const serToMorze = (str, morzeMap) => {
+//   let result = "";
+//
+//   for (const elem of str) {
+//     result = +morzeMap[elem];
+//   }
+//
+//   return result.join("");
+// };
 
-TimeLimitedCache.prototype.set = function (key, value, duration) {
-    let found = this.cache.has(key);
-    if (found) clearTimeout(this.cache.get(key).ref);  // Cancel previous timeout
-    this.cache.set(key, {
-        value,  // Equivalent to `value: value`
-        ref: setTimeout(() => this.cache.delete(key), duration)
-    });
-    return found;
-};
 
-TimeLimitedCache.prototype.get = function (key) {
-    return this.cache.has(key) ? this.cache.get(key).value : -1;
-};
-
-TimeLimitedCache.prototype.count = function () {
-    return this.cache.size;
-};
-
-
-function memoize(fn) {
-    const cache = {}
-
-    return function (...args) {
-        const key = JSON.stringify(args) + JSON.stringify(fn.name)
-        if (key in cache) {
-            return cache[key]
-        }
-        const result = fn.apply(this, args)
-        cache[key] = result
-        return result
+// function groupAnagrams(words) {
+//     let result = {};
+//
+//     // пройдемся по каждому слову
+//     for (let word of words) {
+//         // отсортируем буквы в слове по алфавиту и преобразуем в строку
+//         let sortedWord = word.split('').sort().join('');
+//
+//         // если этот набор букв уже есть в объекте result, то добавим слово в соответствующий массив
+//         if (sortedWord in result) {
+//             result[sortedWord].push(word);
+//         } else {
+//             // иначе создадим новый ключ в объекте result
+//             result[sortedWord] = [word];
+//         }
+//     }
+//
+//     // преобразуем объект result в массив массивов и вернем результат
+//     return Object.values(result);
+// }
+//
+// // пример использования
+// let words = ['лунь', 'нуль', 'воз', 'зов', 'жопа'];
+// let groupedWords = groupAnagrams(words);
+// console.log(groupedWords);
 
 
+// const nonSorted = [7, 0, 5, 8, 9, 0, 12, 1, 0];
+// //
+// var moveZeroes = function(nums) {
+//   let notZeroIdx = 0;
+//   for (let i = 0; i < nums.length; i++) {
+//     if (nums[i] !== 0) {
+//       [nums[notZeroIdx], nums[i]] = [nums[i], nums[notZeroIdx]];
+//       notZeroIdx++;
+//     }
+//   }
+//   return nums;
+// };
+// console.log(moveZeroes(nonSorted));
+
+// const input = [1, 1, 1, 1, 2, 2, 3];
+// const k = 2;
+// const output = [1, 2];
+// const getFrenqNumbers = (nums, k) => {
+//   const hash = {};
+//
+//   for (let num of nums) {
+//     hash[num] = hash[num] + 1 || 1;
+//   }
+//   const sorted = Object.entries(hash).sort(([_, valueA], [__, valueB]) => {
+//     return valueB - valueA;
+//   });
+//
+//   const result = [];
+//
+//   for (let i = 0; i < k; i++) {
+//     result.push(Number(sorted[i][0]));
+//   }
+//
+//   return result;
+//
+// };
+//
+//
+// console.log(getFrenqNumbers(input, k));
+
+
+// var removeDuplicates = function (nums) {
+//     let pointer = 0
+//
+//     for (let i = 0; i < nums.length; i++) {
+//         if (nums[i] !== nums[i + 1]) {
+//             nums.splice(pointer, 1)
+//             nums.push('_')
+//             pointer++
+//         }
+//     }
+//
+//     return nums.splice(nums.length - pointer, pointer)
+//
+// }
+// removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4])
+
+function diagonalDifference(arr) {
+    let leftSum = 0;
+    let rightSum = 0;
+    const n = arr.length;
+
+    // iterate over the array and calculate the sums of the diagonals
+    for (let i = 0; i < n; i++) {
+        leftSum += arr[i][i];
+        rightSum += arr[i][n - i - 1];
     }
 
+    // calculate the absolute difference between the diagonal sums
+    return Math.abs(leftSum - rightSum);
 }
 
-const sum = (a, b) => a + b;
-const memoizedSum = memoize(sum);
-memoizedSum(2, 2);
+// example usage:
+const arr = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 13]
+];
 
-function flatten(arr) {
-    let flatArr = [];
-    while (arr.length) {
-        const current = arr.shift();
-        if (Array.isArray(current)) {
-            arr.unshift(...current);
-        } else {
-            flatArr.push(current);
-        }
-    }
-    return flatArr;
-}
-
-var flat = function (arr, n) {
-    if (n === 0) {
-        return arr.slice();
-    }
-    const flattened = [];
-    for (const elem of arr) {
-        if (Array.isArray(elem)) {
-            flattened.push(...flat(elem, n - 1));
-        } else {
-            flattened.push(elem);
-        }
-    }
-    return flattened;
-};
-
-function sortOddNumbers(arr) {
-    const oddNumbers = arr.filter(num => num % 2 !== 0).sort((a, b) => a - b);
-    return arr.map(num => num % 2 !== 0 ? oddNumbers.shift() : num);
-}
-
-const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
-console.log(sortOddNumbers(numbers)); // [6, 1, 3, 5, 8, 7, 2, 4]
-
-
-const strBefore = 'abccc'
-const morzeMap = {
-    a: '_',
-    b: '.',
-    c: '.-'
-}
-
-const serToMorze = (str, morzeMap) => {
-    let result = ''
-
-    for (const elem of str) {
-        result=+morzeMap[elem]
-    }
-
-    return result.join('')
-}
-
-
-
-function groupAnagrams(words) {
-    let result = {};
-
-    // пройдемся по каждому слову
-    for (let word of words) {
-        // отсортируем буквы в слове по алфавиту и преобразуем в строку
-        let sortedWord = word.split('').sort().join('');
-
-        // если этот набор букв уже есть в объекте result, то добавим слово в соответствующий массив
-        if (sortedWord in result) {
-            result[sortedWord].push(word);
-        } else {
-            // иначе создадим новый ключ в объекте result
-            result[sortedWord] = [word];
-        }
-    }
-
-    // преобразуем объект result в массив массивов и вернем результат
-    return Object.values(result);
-}
-
-// пример использования
-let words = ['лунь', 'нуль', 'воз', 'зов', 'жопа'];
-let groupedWords = groupAnagrams(words);
-console.log(groupedWords);
+console.log(diagonalDifference(arr))
